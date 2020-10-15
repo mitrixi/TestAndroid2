@@ -1,0 +1,31 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useTestNG()
+}
+
+sourceCompatibility = '1.8'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.codeborne', name: 'selenide', version: '5.13.1'
+//    compile group: 'io.qameta.allure', name: 'allure-gradle', version: '2.3'
+    compile group: 'io.qameta.allure', name: 'allure-testng', version: '2.13.5'
+    testCompile group: 'org.testng', name: 'testng', version: '7.3.0'
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.6'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
+    compile group: 'io.appium', name: 'java-client', version: '7.3.0'
+    compile group: 'com.comcast.magic-wand', name: 'appium', version: '4.0.3'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+}
