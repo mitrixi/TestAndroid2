@@ -25,8 +25,8 @@ public class TestAndroid {
         capabilities.setCapability("app","/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
 
 
-        driver = new AndroidDriver<>(new URL("http://10.254.7.131:4723/wd/hub"), capabilities);
-//        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+//        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 //        driver = new AndroidDriver<>(new URL("http://192.168.99.103:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
