@@ -49,7 +49,7 @@ public class TestAndroid {
         }
 
 //        Runtime.getRuntime().exec("sudo tshark -Y \"tcp.stream eq 3\" > /home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/logs_tshark_packages.txt");
-        Runtime.getRuntime().exec("/home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/tshark_script.sh");
+        Runtime.getRuntime().exec("src/test/resources/tshark_script.sh");
 //        Runtime.getRuntime().exec("touch /home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/logs_tshark_packages.txt");
 
 
