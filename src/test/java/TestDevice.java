@@ -46,7 +46,7 @@ public class TestDevice {
 
     @Test
     public void test() throws IOException {
-        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(TSHARK_SCRIPT_FILE).getPath());
+        Runtime.getRuntime().exec("/home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/tshark_script.sh");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -58,8 +58,8 @@ public class TestDevice {
         capabilities.setCapability("app", this.getClass().getClassLoader().getResource(VITRINA_APP_APK_FILE).getPath());
 
 
-        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);   //for Jenkins
-//        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);      //for local PC
+//        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);   //for Jenkins
+        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);      //for local PC
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 
