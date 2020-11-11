@@ -1,6 +1,24 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.3"
+    }
+}
+
 plugins {
+
     id 'application'
     id 'java'
+    id "io.qameta.allure" version "2.8.1"
+}
+
+allure {
+    version = '2.13.5'
+    autoconfigure = true
+    aspectjweaver = true
+//    allureJavaVersion = LATEST_VERSION
 }
 
 group 'org.example'
@@ -15,6 +33,13 @@ test {
 }
 
 sourceCompatibility = '1.8'
+compileJava.options.encoding = 'UTF-8'
+
+test {
+    useTestNG()
+    ignoreFailures = true
+    testLogging.showStandardStreams = true
+}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
