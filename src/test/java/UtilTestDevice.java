@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class Util {
+public class UtilTestDevice {
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
