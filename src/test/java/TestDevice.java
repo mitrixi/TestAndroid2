@@ -46,7 +46,7 @@ public class TestDevice {
 
     @Test
     public void test() throws IOException {
-        Runtime.getRuntime().exec("/home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/tshark_script.sh");
+        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(TSHARK_SCRIPT_FILE).getPath());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -55,7 +55,7 @@ public class TestDevice {
 
         capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
         capabilities.setCapability("udid", "a6eaa0e2");
-        capabilities.setCapability("app", this.getClass().getClassLoader().getResource(VITRINA_APP_APK_FILE).getPath());
+        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
 
 
         driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);   //for Jenkins
