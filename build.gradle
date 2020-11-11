@@ -8,7 +8,6 @@
 //}
 
 plugins {
-
     id 'application'
     id 'java'
 //    id "io.qameta.allure" version "2.8.1"
@@ -28,18 +27,14 @@ repositories {
     mavenCentral()
 }
 
-test {
-    useTestNG()
-}
-
 sourceCompatibility = '1.8'
-//compileJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
 
-//test {
+test {
 //    useTestNG()
-//    ignoreFailures = true
-//    testLogging.showStandardStreams = true
-//}
+    ignoreFailures = true
+    testLogging.showStandardStreams = true
+}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
