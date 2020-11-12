@@ -10,6 +10,8 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -58,8 +60,8 @@ public class TestDevice {
         capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
 
 
-//        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);   //for Jenkins
-        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);      //for local PC
+        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);   //for Jenkins
+//        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);      //for local PC
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 
@@ -89,6 +91,16 @@ public class TestDevice {
         }
 
         assertThat("Отсутствие видеопотока", isStreamStart, equalTo(true));
+
+
+        String test =
+                "    1 0.000000000  10.10.0.102 → 192.168.0.4  DNS 83 Standard query 0x1f3f A youtubei.googleapis.com\n" +
+                "    2 2.255402522  10.10.0.102 → 192.168.0.4  DNS 89 Standard query 0x3a3f A connectivitycheck.gstatic.com\n" +
+                "    3 2.263425351  10.10.0.102 → 64.233.161.95 TCP 74 38402 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 SACK_PERM=1 TSval=74902848 TSecr=0 WS=256";
     }
+
+    Pattern pattern = Pattern.compile("");
+
+//    Matcher matcher = pattern.matcher()
 }
 
