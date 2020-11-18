@@ -1,1 +1,1 @@
-sudo tshark -Y "tcp.stream eq 3" > /home/mitrixi/Local_C/IdeaProjects/VitrinaTV_Project/src/test/resources/logs_tshark_packages.txt
+sudo tshark -i enp2s0 -Y "ip.src == 92.223.99.99"
