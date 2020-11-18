@@ -93,10 +93,10 @@ public class TestDevice {
         assertThat("Отсутствие видеопотока", isStreamStart, equalTo(true));
 
 
-        String test =
-                "    1 0.000000000  10.10.0.102 → 192.168.0.4  DNS 83 Standard query 0x1f3f A youtubei.googleapis.com\n" +
-                "    2 2.255402522  10.10.0.102 → 192.168.0.4  DNS 89 Standard query 0x3a3f A connectivitycheck.gstatic.com\n" +
-                "    3 2.263425351  10.10.0.102 → 64.233.161.95 TCP 74 38402 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 SACK_PERM=1 TSval=74902848 TSecr=0 WS=256";
+//        String test =
+//                "    1 0.000000000  10.10.0.102 → 192.168.0.4  DNS 83 Standard query 0x1f3f A youtubei.googleapis.com\n" +
+//                "    2 2.255402522  10.10.0.102 → 192.168.0.4  DNS 89 Standard query 0x3a3f A connectivitycheck.gstatic.com\n" +
+//                "    3 2.263425351  10.10.0.102 → 64.233.161.95 TCP 74 38402 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 SACK_PERM=1 TSval=74902848 TSecr=0 WS=256";
     }
 
     Pattern pattern = Pattern.compile("");
