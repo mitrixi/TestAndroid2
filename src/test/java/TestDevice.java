@@ -94,7 +94,7 @@ public class TestDevice {
 
     private void initDriver(boolean isIos) throws MalformedURLException {
         if (isIos) {
-            driver = new IOSDriver<>(new URL("http://10.254.0.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+            driver = new IOSDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
         }
         else {
             driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
