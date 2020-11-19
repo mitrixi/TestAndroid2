@@ -61,7 +61,7 @@ public class TestDevice {
     @Test
     public void isStreamStartTest() throws IOException, InterruptedException {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
-        boolean isIos = true;
+        boolean isIos = false;
 
         initDriver(isIos);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
