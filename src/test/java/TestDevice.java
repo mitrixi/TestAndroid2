@@ -21,6 +21,7 @@ public class TestDevice {
     // Android
     public final static String ANDR_TSHARK_SCRIPT_FILE = "tshark_script.sh";
     public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
+    public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
@@ -74,8 +75,14 @@ public class TestDevice {
 
         tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
 
-        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
-        Runtime.getRuntime().exec(tsharkStopScript);
+//        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
+//        Runtime.getRuntime().exec(tsharkStopScript);
+        if (isIos) {
+            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
+        }
+        else {
+            Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
+        }
 //        Runtime.getRuntime().exec("kill -9 " + UtilTestDevice.getPidOfProcess(tsharkProcess));
 
         boolean isStreamStart = false;
