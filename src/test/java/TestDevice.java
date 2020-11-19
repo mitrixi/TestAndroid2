@@ -61,7 +61,6 @@ public class TestDevice {
         boolean isIos = true;
 
         initDriver(isIos);
-//        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));      //for local PC
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         stepToConfigUrl(isIos);
@@ -94,11 +93,12 @@ public class TestDevice {
 
     private void initDriver(boolean isIos) throws MalformedURLException {
         if (isIos) {
-            driver = new IOSDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+            driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
         }
         else {
             driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
         }
+//        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));      //for local PC
     }
 
     private DesiredCapabilities fillCapabilitys(boolean isIos) {
