@@ -1,7 +1,5 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -27,10 +25,10 @@ public class TestDevice {
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
 
     //iOS
-    public final static String IOS_TSHARK_SCRIPT_OUT_FILE = "tshark_out_script.sh"; // вывод для консоли
+    public final static String IOS_TSHARK_START_SCRIPT_FILE = "tshark_start_script.sh"; // вывод для консоли
     public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
-    public final static String IOS_DEVICE_IP = "10.254.7.106";  // см. файл tshark_out_script.sh
-    public final static String IOS_STREAM_IP = "92.223.99.99";  // см. файл tshark_out_script.sh
+    public final static String IOS_DEVICE_IP = "10.254.7.106";  // см. файл tshark_start_script.sh
+    public final static String IOS_STREAM_IP = "92.223.99.99";  // см. файл tshark_start_script.sh
     public final static String IOS_CONFIG_FILE_URL = "https://stage.mediavitrina.ru/testdata/1227";
 
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
@@ -63,17 +61,17 @@ public class TestDevice {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
         boolean isIos = true;
 
-        initDriver(isIos);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        initDriver(isIos);
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        stepToConfigUrl(isIos);
+//        stepToConfigUrl(isIos);
 
         // Запускаем tshark, читаем из консоли Stream
-        String tsharkStartScript = isIos ? IOS_TSHARK_SCRIPT_OUT_FILE : ANDR_TSHARK_SCRIPT_FILE;
+        String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_SCRIPT_FILE;
         Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
-        stepOk(isIos);
+//        stepOk(isIos);
 
         tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
 
@@ -101,16 +99,16 @@ public class TestDevice {
     }
 
     private void initDriver(boolean isIos) throws MalformedURLException {
-        try {
-            if (isIos) {
-                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
-            } else {
-                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));      //for local PC
+//        try {
+//            if (isIos) {
+//                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+//            } else {
+//                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));      //for local PC
     }
 
     private DesiredCapabilities fillCapabilitys(boolean isIos) {
