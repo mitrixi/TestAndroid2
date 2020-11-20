@@ -108,7 +108,7 @@ public class TestDevice {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));      //for local PC
+        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for local PC
     }
 
     private DesiredCapabilities fillCapabilitys(boolean isIos) {
