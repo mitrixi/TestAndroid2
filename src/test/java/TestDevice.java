@@ -75,7 +75,8 @@ public class TestDevice {
 
 //        stepOk(isIos);
 
-        tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
+//        tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
+        TimeUnit.SECONDS.sleep(SLEEP_TIME);
 
 //        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
 //        Runtime.getRuntime().exec(tsharkStopScript);
