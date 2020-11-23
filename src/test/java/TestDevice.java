@@ -1,5 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -77,12 +79,14 @@ public class TestDevice {
 
 //        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
 //        Runtime.getRuntime().exec(tsharkStopScript);
+        /*
         if (isIos) {
             Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
         }
         else {
             Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
         }
+         */
 //        Runtime.getRuntime().exec("kill -9 " + UtilTestDevice.getPidOfProcess(tsharkProcess));
 
         boolean isStreamStart = false;
@@ -99,16 +103,16 @@ public class TestDevice {
     }
 
     private void initDriver(boolean isIos) throws MalformedURLException {
-//        try {
-//            if (isIos) {
-//                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
-//            } else {
-//                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for local PC
+        try {
+            if (isIos) {
+                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+            } else {
+                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for local PC
     }
 
     private DesiredCapabilities fillCapabilitys(boolean isIos) {
