@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,7 +38,7 @@ public class TestDevice {
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    public final static String TEST_STREAM_IP = "92.223.99.99"; // СТС ToDo изменить на динамический
+    public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
 
     public final static int SLEEP_TIME = 10;
 
@@ -161,10 +162,10 @@ public class TestDevice {
 
     private boolean isStreamStartCheck(boolean isIos, String fileString) {
         if (isIos) {
-            return fileString.contains(IOS_DEVICE_IP) && fileString.contains(TEST_STREAM_IP) && fileString.contains(START_STREAM_SERVER_MSG);
+            return fileString.contains(IOS_DEVICE_IP) && Arrays.stream(TEST_STREAM_IP).anyMatch(fileString::contains) && fileString.contains(START_STREAM_SERVER_MSG);
         }
         else {
-            return fileString.contains(ANDR_DEVICE_IP) && fileString.contains(TEST_STREAM_IP) && fileString.contains(START_STREAM_SERVER_MSG);
+            return fileString.contains(ANDR_DEVICE_IP) && Arrays.stream(TEST_STREAM_IP).anyMatch(fileString::contains) && fileString.contains(START_STREAM_SERVER_MSG);
         }
     }
 
