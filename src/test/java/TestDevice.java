@@ -25,6 +25,8 @@ public class TestDevice {
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
+    public final static String ANDR_SSH_TSHARK = "ssh root@10.254.0.131 '/usr/bin/tshark'";
+
 
     //iOS
     public final static String IOS_TSHARK_START_SCRIPT_FILE = "tshark_start_script.sh"; // вывод для консоли
@@ -63,72 +65,56 @@ public class TestDevice {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
         boolean isIos = false;
 
-//        initDriver(isIos);
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        initDriver(isIos);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-//        stepToConfigUrl(isIos);
+        stepToConfigUrl(isIos);
 
         // Запускаем tshark, читаем из консоли Stream
         String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_SCRIPT_FILE;
-        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
-
+        Process tsharkProcess = Runtime.getRuntime().exec(ANDR_SSH_TSHARK);
 
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
-//        stepOk(isIos);
+        stepOk(isIos);
 
-//        tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
-        TimeUnit.SECONDS.sleep(SLEEP_TIME);
+        tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
 
-//        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
-//        Runtime.getRuntime().exec(tsharkStopScript);
+        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
+        Runtime.getRuntime().exec(tsharkStopScript);
         if (isIos) {
-//            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
-            Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
+            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
         }
         else {
             Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
         }
-//        Runtime.getRuntime().exec("kill -9 " + UtilTestDevice.getPidOfProcess(tsharkProcess));
 
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
         boolean isStreamStart = false;
         while (tsharkInputStream.ready()) {
             String fileString = tsharkInputStream.readLine();
             System.out.println(fileString);
             if (isStreamStartCheck(isIos, fileString)) {
                 isStreamStart = true;
-//                break;
             }
         }
-
-        System.out.println("????????????????????????????????????????????????????????????????????????????/");
-        System.out.println("????????????????????????????????????????????????????????????????????????????/");
-        System.out.println("????????????????????????????????????????????????????????????????????????????/");
-        System.out.println("????????????????????????????????????????????????????????????????????????????/");
-        System.out.println("????????????????????????????????????????????????????????????????????????????/");
 
         assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
     }
 
-    private void initDriver(boolean isIos) throws MalformedURLException {
+    private void initDriver(boolean isIos) {
         try {
             if (isIos) {
-                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilities(isIos));   //for Jenkins
             } else {
-                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilitys(isIos));   //for Jenkins
+                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilities(isIos));   //for Jenkins
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), fillCapabilitys(isIos));   //for local PC
     }
 
-    private DesiredCapabilities fillCapabilitys(boolean isIos) {
+    private DesiredCapabilities fillCapabilities(boolean isIos) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         if (isIos) {
