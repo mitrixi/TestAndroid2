@@ -74,7 +74,9 @@ public class TestDevice {
         Process tsharkProcess = null;
         try {
             tsharkProcess = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark'");
+            System.out.println("TRYYYYYYYY");
         } catch (Exception e) {
+            System.out.println("EXCEPTION");
             e.printStackTrace();
         }
 
