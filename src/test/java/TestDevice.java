@@ -80,14 +80,13 @@ public class TestDevice {
 
 //        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
 //        Runtime.getRuntime().exec(tsharkStopScript);
-        /*
         if (isIos) {
-            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
+//            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
+            Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
         }
         else {
             Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
         }
-         */
 //        Runtime.getRuntime().exec("kill -9 " + UtilTestDevice.getPidOfProcess(tsharkProcess));
 
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
