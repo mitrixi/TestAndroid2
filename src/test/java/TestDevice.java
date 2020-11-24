@@ -61,7 +61,7 @@ public class TestDevice {
     @Test
     public void isStreamStartTest() throws IOException, InterruptedException {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
-        boolean isIos = true;
+        boolean isIos = false;
 
 //        initDriver(isIos);
 //        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -70,7 +70,14 @@ public class TestDevice {
 
         // Запускаем tshark, читаем из консоли Stream
         String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_SCRIPT_FILE;
-        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
+//        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
+        Process tsharkProcess = null;
+        try {
+            tsharkProcess = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark'");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
 //        stepOk(isIos);
