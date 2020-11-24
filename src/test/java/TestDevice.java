@@ -70,15 +70,15 @@ public class TestDevice {
 
         // Запускаем tshark, читаем из консоли Stream
         String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_SCRIPT_FILE;
-//        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
-        Process tsharkProcess = null;
-        try {
-            tsharkProcess = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark'");
-            System.out.println("TRYYYYYYYY");
-        } catch (Exception e) {
-            System.out.println("EXCEPTION");
-            e.printStackTrace();
-        }
+        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
+//        Process tsharkProcess = null;
+//        try {
+//            tsharkProcess = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark'");
+//            System.out.println("TRYYYYYYYY");
+//        } catch (Exception e) {
+//            System.out.println("EXCEPTION");
+//            e.printStackTrace();
+//        }
 
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
