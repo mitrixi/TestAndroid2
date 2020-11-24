@@ -34,6 +34,7 @@ test {
     useTestNG()
     ignoreFailures = true
     testLogging.showStandardStreams = true
+
 }
 
 dependencies {
