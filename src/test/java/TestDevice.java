@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.io.*;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -19,26 +18,26 @@ import static org.hamcrest.Matchers.*;
 
 public class TestDevice {
     // Android
-    public final static String ANDR_TSHARK_SCRIPT_FILE = "tshark_script.sh";
-    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
-    public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
+    public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
+    public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "andr_tshark_stop_script.sh";
+//    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
-    public final static String ANDR_SSH_TSHARK = "ssh root@10.254.0.131 '/usr/bin/tshark'";
-
+//    public final static String ANDR_SSH_TSHARK = "ssh root@10.254.0.131 '/usr/bin/tshark'";
 
     //iOS
     public final static String IOS_TSHARK_START_SCRIPT_FILE = "tshark_start_script.sh"; // вывод для консоли
-    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
+    public final static String IOS_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
+//    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
     public final static String IOS_DEVICE_IP = "10.254.7.106";  // см. файл tshark_start_script.sh
-    public final static String IOS_STREAM_IP = "92.223.99.99";  // см. файл tshark_start_script.sh
+//    public final static String IOS_STREAM_IP = "92.223.99.99";  // см. файл tshark_start_script.sh
     public final static String IOS_CONFIG_FILE_URL = "https://stage.mediavitrina.ru/testdata/1227";
 
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    public final static String TEST_STREAM_IP = "92.223.99.99";
+    public final static String TEST_STREAM_IP = "92.223.99.99"; // СТС ToDo изменить на динамический
 
     public final static int SLEEP_TIME = 10;
 
@@ -71,24 +70,16 @@ public class TestDevice {
         stepToConfigUrl(isIos);
 
         // Запускаем tshark, читаем из консоли Stream
-        String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_SCRIPT_FILE;
-        Process tsharkProcess = Runtime.getRuntime().exec(ANDR_SSH_TSHARK);
-
+        String tsharkStartScript = isIos ? IOS_TSHARK_START_SCRIPT_FILE : ANDR_TSHARK_START_SCRIPT_FILE;
+        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStartScript).getPath());
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
         stepOk(isIos);
 
         tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
 
-        String tsharkStopScript = isIos ? IOS_TSHARK_KILL_SCRIPT : ANDR_TSHARK_KILL_SCRIPT;
-        Runtime.getRuntime().exec(tsharkStopScript);
-        if (isIos) {
-            Runtime.getRuntime().exec(IOS_TSHARK_KILL_SCRIPT);
-        }
-        else {
-            Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath());
-        }
-
+        String tsharkStopScript = isIos ? IOS_TSHARK_STOP_SCRIPT_FILE : ANDR_TSHARK_STOP_SCRIPT_FILE;
+        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStopScript).getPath());
 
         boolean isStreamStart = false;
         while (tsharkInputStream.ready()) {
@@ -105,9 +96,9 @@ public class TestDevice {
     private void initDriver(boolean isIos) {
         try {
             if (isIos) {
-                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilities(isIos));   //for Jenkins
+                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilities(isIos));
             } else {
-                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilities(isIos));   //for Jenkins
+                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilities(isIos));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -31,6 +31,7 @@ sourceCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
 test {
+//    useJUnit()
     useTestNG()
     ignoreFailures = true
     testLogging.showStandardStreams = true
