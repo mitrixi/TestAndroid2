@@ -53,6 +53,7 @@ public class StreamStartTest {
         while (tsharkProcessStreamReader.ready()) {
             strStream = tsharkProcessStreamReader.readLine();
             if (strStream.contains(device.getIP()) && Arrays.stream(TEST_STREAM_IP).anyMatch(strStream::contains) && strStream.contains(START_STREAM_SERVER_MSG)) {
+                System.out.println(strStream);
                 isStreamStart = true;
                 break;
             }
