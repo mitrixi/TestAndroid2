@@ -21,7 +21,19 @@ public class IosDevice implements IDevice {
     AppiumDriver<WebElement> driver;
 
     public IosDevice() throws MalformedURLException {
-        driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), fillCapabilities());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName", "iOS");
+        capabilities.setCapability("deviceName", "iPhone (MMTR)");
+        capabilities.setCapability("udid", "auto");
+        capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
+        capabilities.setCapability("bundleId", "com.apple.TestFlight");
+        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
+        capabilities.setCapability("automationName", "XCUITest");
+        capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
+        capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
+        capabilities.setCapability("useNewWDA", true);
+
+        driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
@@ -56,20 +68,5 @@ public class IosDevice implements IDevice {
     @Override
     public String getDeviceId() {
         return IOS_DEVICE_IP;
-    }
-
-    private DesiredCapabilities fillCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("deviceName", "iPhone (MMTR)");
-        capabilities.setCapability("udid", "auto");
-        capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
-        capabilities.setCapability("bundleId", "com.apple.TestFlight");
-        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
-        capabilities.setCapability("automationName", "XCUITest");
-        capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
-        capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
-        capabilities.setCapability("useNewWDA", true);
-        return capabilities;
     }
 }

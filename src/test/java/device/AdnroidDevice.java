@@ -23,7 +23,14 @@ public class AdnroidDevice implements IDevice {
     AppiumDriver<WebElement> driver;
 
     public AdnroidDevice() throws MalformedURLException {
-        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), fillCapabilities());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformName", "android");
+        capabilities.setCapability("noReset", true);
+        capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
+        capabilities.setCapability("udid", "a6eaa0e2");
+        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
+
+        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
@@ -52,15 +59,5 @@ public class AdnroidDevice implements IDevice {
     @Override
     public String getDeviceId() {
         return ANDR_DEVICE_IP;
-    }
-
-    private DesiredCapabilities fillCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "android");
-        capabilities.setCapability("noReset", true);
-        capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
-        capabilities.setCapability("udid", "a6eaa0e2");
-        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
-        return capabilities;
     }
 }
