@@ -25,10 +25,9 @@ public class StreamStartTest {
     @Test
     public void isStreamStartTest() throws IOException, InterruptedException {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
-        boolean isIos = false;
 
-//        IDevice device = isIos ? new IosDevice() : new AndroidDevice();
         AndroidDevice device = new AndroidDevice();
+//        IosDevice device = new IosDevice();
 
         device.stepToConfigUrl();
 
