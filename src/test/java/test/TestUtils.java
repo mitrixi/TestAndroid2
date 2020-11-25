@@ -1,3 +1,5 @@
+package test;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -6,7 +8,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class UtilTestDevice {
+public class TestUtils {
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();

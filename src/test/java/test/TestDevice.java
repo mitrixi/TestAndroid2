@@ -1,3 +1,5 @@
+package test;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -8,14 +10,17 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static test.TestUtils.readJsonFromUrl;
 
 public class TestDevice {
     // Android
@@ -49,7 +54,7 @@ public class TestDevice {
 
     @BeforeClass
     public void preinstallations() throws IOException {
-        JSONObject json = UtilTestDevice.readJsonFromUrl(ANDR_CONFIG_FILE_URL);
+        JSONObject json = readJsonFromUrl(ANDR_CONFIG_FILE_URL);
 
         String restrictionsApiUrl = json.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
         InetAddress restrictionsInetAddress = InetAddress.getByName(new URL(restrictionsApiUrl).getHost());
@@ -60,7 +65,7 @@ public class TestDevice {
         epgIP = epgInetAddress.getHostAddress();
     }
 
-    @Test
+    @Test(enabled = false)
     public void isStreamStartTest() throws IOException, InterruptedException {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
         boolean isIos = true;
