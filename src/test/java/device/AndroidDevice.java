@@ -47,13 +47,13 @@ public class AndroidDevice implements IDevice {
     }
 
     @Override
-    public String getTsharkStartFile() {
-        return ANDR_TSHARK_START_SCRIPT_FILE;
+    public String getTsharkStartFilePath() {
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_START_SCRIPT_FILE).getPath();
     }
 
     @Override
-    public String getTsharkStopFile() {
-        return ANDR_TSHARK_STOP_SCRIPT_FILE;
+    public String getTsharkStopFilePath() {
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath();
     }
 
     @Override

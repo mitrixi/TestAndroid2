@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 public interface IDevice {
     void stepToConfigUrl();
     void stepOk();
-    String getTsharkStartFile();
-    String getTsharkStopFile();
+    String getTsharkStartFilePath();
+    String getTsharkStopFilePath();
     String getDeviceId();
 }

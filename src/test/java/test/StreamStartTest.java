@@ -30,14 +30,14 @@ public class StreamStartTest {
         device.stepToConfigUrl();
 
         // Запускаем tshark, читаем из консоли Stream
-        Process tsharkProcess = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(device.getTsharkStartFile()).getPath());
+        Process tsharkProcess = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkInputStream = new BufferedReader(new InputStreamReader(tsharkProcess.getInputStream()));
 
         device.stepOk();
 
         tsharkProcess.waitFor(SLEEP_TIME, TimeUnit.SECONDS);
 
-        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(device.getTsharkStopFile()).getPath());
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         boolean isStreamStart = false;
         while (tsharkInputStream.ready()) {
