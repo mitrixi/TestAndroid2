@@ -10,5 +10,6 @@ public interface IDevice {
     void stepOk();
     String getTsharkStartFilePath();
     String getTsharkStopFilePath();
-    String getDeviceId();
+    String getIP();
+    String startBlackoutSniffing();
 }

@@ -87,16 +87,18 @@ public class TestDevice {
         String tsharkStopScript = isIos ? IOS_TSHARK_STOP_SCRIPT_FILE : ANDR_TSHARK_STOP_SCRIPT_FILE;
         Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource(tsharkStopScript).getPath());
 
-        boolean isStreamStart = false;
-        while (tsharkInputStream.ready()) {
-            String fileString = tsharkInputStream.readLine();
-            System.out.println(fileString);
-            if (isStreamStartCheck(isIos, fileString)) {
-                isStreamStart = true;
-            }
-        }
+//        boolean isStreamStart = false;
+//        while (tsharkInputStream.ready()) {
+//            String fileString = tsharkInputStream.readLine();
+//            System.out.println(fileString);
+//            if (isStreamStartCheck(isIos, fileString)) {
+//                isStreamStart = true;
+//            }
+//        }
+//
+//        assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
 
-        assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
+
     }
 
     private void initDriver(boolean isIos) {

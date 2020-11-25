@@ -57,7 +57,12 @@ public class AndroidDevice implements IDevice {
     }
 
     @Override
-    public String getDeviceId() {
+    public String getIP() {
         return ANDR_DEVICE_IP;
+    }
+
+    @Override
+    public String startBlackoutSniffing() {
+        return "ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"";
     }
 }
