@@ -63,6 +63,7 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public String startBlackoutSniffing() {
-        return ANDR_TSHARK_BLACKOUT_SNIFFING;
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_BLACKOUT_SNIFFING).getPath();
+
     }
 }
