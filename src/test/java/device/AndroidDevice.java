@@ -14,11 +14,11 @@ public class AndroidDevice implements IDevice {
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "andr_tshark_stop_script.sh";
+    public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_stop_script.sh";
     //    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
-//    public final static String ANDR_SSH_TSHARK = "ssh root@10.254.0.131 '/usr/bin/tshark'";
 
     AppiumDriver<WebElement> driver;
 
@@ -63,6 +63,6 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public String startBlackoutSniffing() {
-        return "ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"";
+        return ANDR_TSHARK_BLACKOUT_SNIFFING;
     }
 }
