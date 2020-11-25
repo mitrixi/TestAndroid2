@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class AdnroidDevice implements IDevice {
+public class AndroidDevice implements IDevice {
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "andr_tshark_stop_script.sh";
@@ -22,7 +22,7 @@ public class AdnroidDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    public AdnroidDevice() throws MalformedURLException {
+    public AndroidDevice() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("noReset", true);

@@ -1,6 +1,6 @@
 package test;
 
-import device.AdnroidDevice;
+import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import org.testng.annotations.Test;
@@ -25,7 +25,7 @@ public class StreamStartTest {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
         boolean isIos = true;
 
-        IDevice device = isIos ? new IosDevice() : new AdnroidDevice();
+        IDevice device = isIos ? new IosDevice() : new AndroidDevice();
 
         device.stepToConfigUrl();
 
