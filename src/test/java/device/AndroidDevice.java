@@ -14,7 +14,7 @@ public class AndroidDevice implements IDevice {
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "andr_tshark_stop_script.sh";
-    public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_stop_script.sh";
+    public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_blackout_sniffing.sh";
     //    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_CONFIG_FILE_URL = "http://10.254.0.131/";

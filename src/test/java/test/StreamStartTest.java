@@ -27,7 +27,8 @@ public class StreamStartTest {
         // Флаг-заглушка ToDo: должен передаваться из Jenkins
         boolean isIos = false;
 
-        IDevice device = isIos ? new IosDevice() : new AndroidDevice();
+//        IDevice device = isIos ? new IosDevice() : new AndroidDevice();
+        AndroidDevice device = new AndroidDevice();
 
         device.stepToConfigUrl();
 
