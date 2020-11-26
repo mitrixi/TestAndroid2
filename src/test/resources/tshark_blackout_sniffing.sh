@@ -1,0 +1,1 @@
+ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y "tls.handshake.session_id && ip.dst == 10.254.7.106 && (ip.src == 193.27.224.36 || ip.src == 193.27.224.37 || ip.src == 193.27.224.38)"'

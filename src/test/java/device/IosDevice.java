@@ -21,6 +21,7 @@ public class IosDevice implements IDevice {
     public final static String SSH = "ssh -tt mmtr@10.254.7.106 ";
     public final static String IOS_TSHARK_START_SCRIPT_FILE = "tshark_start_script.sh"; // вывод для консоли
     public final static String IOS_TSHARK_START_CMD_FOR_BO = SSH + "'/usr/local/bin/tshark -Y \"tls.handshake.session_id && ip.dst == " + IOS_DEVICE_IP + " && ip.src == {1}\"'";
+    public final static String IOS_TSHARK_BLACKOUT_SNIFFING = "tshark_blackout_sniffing.sh";
     public final static String IOS_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
     //    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
 
@@ -68,7 +69,8 @@ public class IosDevice implements IDevice {
 
     @Override
     public String getTsharkStartBlackout(String configFileUrl) throws IOException {
-        return IOS_TSHARK_START_CMD_FOR_BO.replace("{1}", getRestrictionsApiIP(configFileUrl));
+        return this.getClass().getClassLoader().getResource(IOS_TSHARK_BLACKOUT_SNIFFING).getPath();
+//        return IOS_TSHARK_START_CMD_FOR_BO.replace("{1}", getRestrictionsApiIP(configFileUrl));
     }
 
     @Override
