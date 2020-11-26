@@ -37,7 +37,7 @@ public class StreamStartTest {
 //        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
 //        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.startBlackoutSniffing());
-        Process tsharkProcessBlackout = Runtime.getRuntime().exec("/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"");
+        Process tsharkProcessBlackout = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68) && ip.dst == 10.10.0.102\"'");
         BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
 
         device.stepOk();
