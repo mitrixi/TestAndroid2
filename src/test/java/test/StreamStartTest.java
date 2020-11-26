@@ -79,7 +79,7 @@ public class StreamStartTest {
 //            }
 //        }
 
-//        assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
+        assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
 //        assertThat("Блэкаут отсутствует", existBlackout, equalTo(true));
 
 //        String patternServerHello = "\\s*(\\d+)\\s(\\d+\\.\\d{9}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).*\\bServer Hello\\b.*";
