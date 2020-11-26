@@ -49,7 +49,7 @@ public class StreamStartTest {
         TimeUnit.SECONDS.sleep(60);
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
-//        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
 //        boolean isStreamStart = false;
 //        String strStream;
