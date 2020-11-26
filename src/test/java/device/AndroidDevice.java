@@ -18,7 +18,7 @@ public class AndroidDevice implements IDevice {
     //    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
-    public final static String ANDR_BLACKOUTS_IP = "151.236.95.210"; // todo добавить в ANDR_TSHARK_BLACKOUT_SNIFFING
+    public final static String ANDR_BLACKOUTS_IP = "151.236.95.210";
 
     AppiumDriver<WebElement> driver;
 
