@@ -49,7 +49,7 @@ public class StreamStartTest {
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
 //        tsharkProcessBlackout.waitFor(60, TimeUnit.SECONDS);
-        TimeUnit.SECONDS.sleep(20);
+        TimeUnit.SECONDS.sleep(40);
 
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
