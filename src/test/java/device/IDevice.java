@@ -1,15 +1,12 @@
 package device;
 
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
-
-import java.net.MalformedURLException;
+import java.io.IOException;
 
 public interface IDevice {
-    void stepToConfigUrl();
+    void stepToConfigUrl(String configFileUrl);
     void stepOk();
     String getTsharkStartFilePath();
+    String getTsharkStartBlackout(String configFileUrl) throws IOException;
     String getTsharkStopFilePath();
-    String getIP();
-    String startBlackoutSniffing();
+    String getDeviceIp();
 }
