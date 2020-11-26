@@ -52,6 +52,11 @@ public class AndroidDevice implements IDevice {
     }
 
     @Override
+    public String startBlackoutSniffing() {
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_BLACKOUT_SNIFFING).getPath();
+    }
+
+    @Override
     public String getTsharkStopFilePath() {
         return this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath();
     }
@@ -59,11 +64,5 @@ public class AndroidDevice implements IDevice {
     @Override
     public String getIP() {
         return ANDR_DEVICE_IP;
-    }
-
-    @Override
-    public String startBlackoutSniffing() {
-        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_BLACKOUT_SNIFFING).getPath();
-
     }
 }
