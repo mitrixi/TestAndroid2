@@ -33,7 +33,7 @@ public class StreamStartTest {
 
         // Запускаем tshark, читаем из консоли Stream
 //        Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
-        Process tsharkProcessStream = Runtime.getRuntime().exec("ssh -t root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"ip.dst == 10.10.0.102\"'");
+        Process tsharkProcessStream = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"ip.dst == 10.10.0.102\"'");
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
 //        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.startBlackoutSniffing());
