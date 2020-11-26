@@ -1,1 +1,2 @@
-ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y "tls.handshake.session_id && ip.dst == 10.10.0.102"'
+#ssh root@10.254.0.131 'bash -s' < /home/mitrixi/Local_C/IdeaProjects/untitled/src/test/resources/script_blackout_filter.sh
+ssh -t root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y "tls.handshake.session_id && ip.dst == 10.10.0.102"'

@@ -32,13 +32,13 @@ public class StreamStartTest {
         device.stepToConfigUrl();
 
         // Запускаем tshark, читаем из консоли Stream
-//        Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
-        Process tsharkProcessStream = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"'");
+        Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
+//        Process tsharkProcessStream = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"'");
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
-//        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.startBlackoutSniffing());
+        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.startBlackoutSniffing());
 //        Process tsharkProcessBlackout = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/usr/bin/tshark -i enp2s0 -Y \"tls.handshake.session_id && ip.dst == 10.10.0.102\"'");
-//        BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
+        BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
 
         device.stepOk();
 
@@ -46,9 +46,9 @@ public class StreamStartTest {
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
-        TimeUnit.SECONDS.sleep(40);
+        TimeUnit.SECONDS.sleep(60);
 
-//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
+        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
 //        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         boolean isStreamStart = false;
@@ -65,22 +65,22 @@ public class StreamStartTest {
             }
         }
 
-//        boolean existBlackout = false;
-//        String strBlackout;
-//        while (tsharkProcessBlackoutReader.ready()) {
-//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            System.out.println("Внутри while блэкаутов");
-//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            strBlackout = tsharkProcessBlackoutReader.readLine();
-//            System.out.println(strBlackout);
-//            if (strBlackout.contains(device.getIP()) && strBlackout.contains(BLACKOUTS_IP) && strBlackout.contains(START_STREAM_SERVER_MSG)) {
-//                existBlackout = true;
-//                break;
-//            }
-//        }
+        boolean existBlackout = false;
+        String strBlackout;
+        while (tsharkProcessBlackoutReader.ready()) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Внутри while блэкаутов");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            strBlackout = tsharkProcessBlackoutReader.readLine();
+            System.out.println(strBlackout);
+            if (strBlackout.contains(device.getIP()) && strBlackout.contains(BLACKOUTS_IP) && strBlackout.contains(START_STREAM_SERVER_MSG)) {
+                existBlackout = true;
+                break;
+            }
+        }
 
         assertThat("Видеопоток отсутствует", isStreamStart, equalTo(true));
-//        assertThat("Блэкаут отсутствует", existBlackout, equalTo(true));
+        assertThat("Блэкаут отсутствует", existBlackout, equalTo(true));
 
 //        String patternServerHello = "\\s*(\\d+)\\s(\\d+\\.\\d{9}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).*\\bServer Hello\\b.*";
 //        String blackouts = "\\\\\\\\";
