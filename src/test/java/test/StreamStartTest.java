@@ -54,10 +54,9 @@ public class StreamStartTest {
         boolean isStreamStart = false;
         String strStream;
         while (tsharkProcessStreamReader.ready()) {
-            System.out.println("Видеопоток:");
             strStream = tsharkProcessStreamReader.readLine();
+            System.out.println(strStream);
             if (strStream.contains(device.getDeviceIp()) && Arrays.stream(TEST_STREAM_IP).anyMatch(strStream::contains) && strStream.contains(START_STREAM_SERVER_MSG)) {
-                System.out.println(strStream);
                 isStreamStart = true;
                 break;
             }
@@ -66,7 +65,6 @@ public class StreamStartTest {
         boolean existBlackout = false;
         String strBlackout;
         while (tsharkProcessBlackoutReader.ready()) {
-            System.out.println("Блэкауты:");
             strBlackout = tsharkProcessBlackoutReader.readLine();
             System.out.println(strBlackout);
             if (strBlackout.contains(START_STREAM_SERVER_MSG)) {
