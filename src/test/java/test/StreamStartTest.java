@@ -42,11 +42,13 @@ public class StreamStartTest {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(15);
-
+//        TimeUnit.SECONDS.sleep(15);
+            Thread.sleep(15000);
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
-        TimeUnit.SECONDS.sleep(10);
+//        TimeUnit.SECONDS.sleep(10);
+        Thread.sleep(10000);
+
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
