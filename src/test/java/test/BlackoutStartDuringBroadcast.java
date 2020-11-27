@@ -41,7 +41,7 @@ public class BlackoutStartDuringBroadcast {
         JSONObject json3 = readJsonFromUrl(urlBlackout);
         boolean broadcasting_allowed = (boolean) json3.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed");
 
-        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл, соответствующий описанию", broadcasting_allowed, equalTo(true));
+        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл, НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
 
 
         /******** Step 2 ********/
@@ -82,6 +82,10 @@ public class BlackoutStartDuringBroadcast {
 
 
         /******** Step 3 ********/
+
+        device.allowBlackout();
+
+
 
 
     }

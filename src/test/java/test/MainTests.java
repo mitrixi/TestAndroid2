@@ -24,7 +24,7 @@ public class MainTests {
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40;
 
-    @Test
+    @Test(enabled = false)
     public void C348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
