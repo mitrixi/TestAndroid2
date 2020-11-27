@@ -8,9 +8,7 @@ import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,6 +50,8 @@ public class MainTests {
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
+        device.stepCancelStream();
+
         boolean isStreamStart = false;
         String strStream;
         while (tsharkProcessStreamReader.ready()) {
@@ -69,17 +69,42 @@ public class MainTests {
         }
 
         boolean existBlackout = false;
-        for (String bo: blackoutList) {
-            if (bo.contains(START_STREAM_SERVER_MSG)) {
-                existBlackout = true;
-                break;
+        if (!blackoutList.isEmpty()) {
+            for (String boString : blackoutList) {
+                if (boString.contains(START_STREAM_SERVER_MSG)) {
+                    existBlackout = true;
+                    break;
+                }
             }
         }
 
         assertThat("C348_Step1: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        assertThat("C348_Step1: Запрос на restrictions_api_url не отправляется (блэкауты)", existBlackout, equalTo(true));
+        assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
 
         /******** Step 2 ********/
+
+        // Должно быть еще 2 успешных запроса. (сам факт)
+
+        boolean existTwoSuccessBoReq = false;
+
+        int boSuccessCount = 2;
+        int secBoReqInterval = 15;
+        int secBoReqLag = 2;
+
+        if (!blackoutList.isEmpty()) {
+            int firstSecBoReq = getSecBoReq(blackoutList.get(0));
+            Set<Integer> secBoReqSet = new HashSet<Integer>();
+            for (String boString : blackoutList) {
+                int secBoReq = getSecBoReq(boString);
+                if ((secBoReq - firstSecBoReq) < (boSuccessCount * secBoReqInterval + secBoReqLag))
+                    secBoReqSet.add(secBoReq);
+            }
+            if (secBoReqSet.size() > 2)
+                existTwoSuccessBoReq = true;
+        }
+
+        assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
+
 
 //        String patternServerHello = "\\s*(\\d+)\\s(\\d+\\.\\d{9}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).*\\bServer Hello\\b.*";
 //        String blackouts = "\\\\\\\\";
@@ -106,6 +131,10 @@ public class MainTests {
 
 //        assertThat("Отсутствие видеопотока", existBlackout, equalTo(true));
 //        assertThat("Отправка запросов каждые 15 секунд", finishTimeStream - startTimeStream, equalTo(30));
+    }
+
+    private int getSecBoReq(String s) {
+        return Math.round(Float.parseFloat(s.split(" +")[1]));
     }
 }
 

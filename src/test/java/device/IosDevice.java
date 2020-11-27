@@ -63,6 +63,12 @@ public class IosDevice implements IDevice {
     }
 
     @Override
+    public void stepCancelStream() {
+        MobileElement okBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"Закрыть\"]");
+        okBtn.click();
+    }
+
+    @Override
     public String getTsharkStartFilePath() {
         return this.getClass().getClassLoader().getResource(IOS_TSHARK_START_SCRIPT_FILE).getPath();
     }

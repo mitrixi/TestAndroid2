@@ -47,6 +47,11 @@ public class AndroidDevice implements IDevice {
     }
 
     @Override
+    public void stepCancelStream() {
+        // Закрывается сам через 1мин
+    }
+
+    @Override
     public String getTsharkStartFilePath() {
         return this.getClass().getClassLoader().getResource(ANDR_TSHARK_START_SCRIPT_FILE).getPath();
     }
