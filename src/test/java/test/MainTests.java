@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static test.TestUtils.*;
+import static test.TestUtils.getSecFromBoStr;
 
 public class MainTests {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
@@ -65,19 +66,13 @@ public class MainTests {
 
         List<String> blackoutList = new ArrayList<>(); // используется для Step 2
         while (tsharkProcessBlackoutReader.ready()) {
-            blackoutList.add(tsharkProcessBlackoutReader.readLine());
-        }
-        blackoutList.remove(0); // удаляем т.к. первая строчка Capturing on 'Ethernet: en0'
-
-        boolean existBlackout = false;
-        if (!blackoutList.isEmpty()) {
-            for (String boString : blackoutList) {
-                if (boString.contains(START_STREAM_SERVER_MSG)) {
-                    existBlackout = true;
-                    break;
-                }
+            String boLine = tsharkProcessStreamReader.readLine();
+            if (boLine.contains(START_STREAM_SERVER_MSG)) {
+                blackoutList.add(boLine);
             }
         }
+
+        boolean existBlackout = blackoutList.isEmpty() ? false : true;
 
         assertThat("C348_Step1: Видеопоток ОТСУТСТВУЕТ", isStreamStart, equalTo(true));
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
@@ -95,7 +90,7 @@ public class MainTests {
 
         // test
         blackoutList.forEach(boString -> {
-            System.out.println(boString);
+            System.out.println(boString + " -/////- " + getSecFromBoStr(boString));
         });
         //test
 
