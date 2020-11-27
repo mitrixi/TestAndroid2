@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -69,5 +70,15 @@ public class AndroidDevice implements IDevice {
     @Override
     public String getDeviceIp() {
         return ANDR_DEVICE_IP;
+    }
+
+    @Override
+    public void restrictBlackout() throws IOException {
+        Runtime.getRuntime().exec("ssh root@10.254.0.131 ''/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF");
+    }
+
+    @Override
+    public void allowBlackout() throws IOException {
+        Runtime.getRuntime().exec("ssh root@10.254.0.131 ''/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON");
     }
 }

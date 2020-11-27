@@ -89,6 +89,16 @@ public class IosDevice implements IDevice {
         return IOS_DEVICE_IP;
     }
 
+    @Override
+    public void restrictBlackout() throws IOException {
+
+    }
+
+    @Override
+    public void allowBlackout() throws IOException {
+
+    }
+
     private CharSequence getRestrictionsApiIP(String configFileUrl) throws IOException {
         JSONObject json = readJsonFromUrl(configFileUrl);
 
