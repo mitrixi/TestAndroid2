@@ -6,6 +6,7 @@ import device.IosDevice;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,13 +20,19 @@ import static test.TestUtils.getPidOfProcess;
 import static test.TestUtils.readJsonFromUrl;
 
 public class C122 {
+
+    @Inject
+    private IosDevice iosDevice;
+    @Inject
+    private AndroidDevice androidDevice;
+
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
     @Test(enabled = false)
     public void C122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? iosDevice : androidDevice;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         /******** Step 1 ********/
@@ -44,12 +51,10 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSec = (int) jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec");
+        int restrictionsPeriodSec = (int) jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec");
 
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
-
-        System.out.println("!!!!!!!!!!!!!!!!!!");
 
         device.stepOk();
 

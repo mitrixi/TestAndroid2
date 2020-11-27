@@ -6,6 +6,7 @@ import device.IosDevice;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,6 +19,12 @@ import static test.TestUtils.*;
 import static test.TestUtils.getSecFromBoStr;
 
 public class C348 {
+
+    @Inject
+    private IosDevice iosDevice;
+    @Inject
+    private AndroidDevice androidDevice;
+
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
@@ -27,12 +34,12 @@ public class C348 {
 
     @BeforeClass
     public void preinstallations() throws IOException {
-        new AndroidDevice().allowBlackout(); // ToDo
+        androidDevice.allowBlackout(); // ToDo
     }
 
     @Test(alwaysRun = true)
     public void C348() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? iosDevice : androidDevice;
 
         /******** Step 1 ********/
 

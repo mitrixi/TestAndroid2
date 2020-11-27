@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
 
+@Singleton
 public class IosDevice implements IDevice {
 
     public final static String IOS_DEVICE_IP = "10.254.7.106";
@@ -28,7 +29,6 @@ public class IosDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    @Singleton
     public IosDevice() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
