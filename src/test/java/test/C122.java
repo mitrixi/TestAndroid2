@@ -49,6 +49,8 @@ public class C122 {
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
+        System.out.println("!!!!!!!!!!!!!!!!!!");
+
         device.stepOk();
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
