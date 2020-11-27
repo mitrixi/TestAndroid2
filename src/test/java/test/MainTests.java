@@ -93,8 +93,13 @@ public class MainTests {
         // 2) Запросы отправляются каждые 15 секунд
         boolean isPeriodicityBoReq = true;
 
+        // test
+        blackoutList.forEach(boString -> {
+            System.out.println(boString);
+        });
+        //test
+
         if (!blackoutList.isEmpty()) {
-            System.out.println(blackoutList.get(0)); //test
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
             Set<Integer> secFromBoStrSet = new HashSet<Integer>();
             blackoutList.forEach(boString -> {
@@ -104,7 +109,7 @@ public class MainTests {
             });
 
             // 1)
-            if (secFromBoStrSet.size() > 2)
+            if (secFromBoStrSet.size() > boSuccessCount)
                 existTwoSuccessBoReq = true;
 
             // 2) Анализируем отправку только первых boSuccessCount запросов
