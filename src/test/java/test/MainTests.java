@@ -8,7 +8,9 @@ import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,9 +27,7 @@ public class MainTests {
 
     @Test
     public void C348() throws IOException, InterruptedException {
-        boolean isIos = "iPhone".equals(System.getenv("deviceType")) ? true : false;
-
-        IDevice device = isIos ? new IosDevice() : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
         /******** Step 1 ********/
 
@@ -63,14 +63,15 @@ public class MainTests {
             }
         }
 
-        boolean existBlackout = false;
-        String strBlackout;
+        List<String> blackoutList = new ArrayList<>(); // используется для Step 2
         while (tsharkProcessBlackoutReader.ready()) {
-            strBlackout = tsharkProcessBlackoutReader.readLine();
-            System.out.println(strBlackout);
-            if (strBlackout.contains(START_STREAM_SERVER_MSG)) {
+            blackoutList.add(tsharkProcessBlackoutReader.readLine());
+        }
+
+        boolean existBlackout = false;
+        for (String bo: blackoutList) {
+            if (bo.contains(START_STREAM_SERVER_MSG)) {
                 existBlackout = true;
-                break;
             }
         }
 
