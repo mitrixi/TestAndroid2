@@ -91,48 +91,21 @@ public class MainTests {
         int secBoReqLag = 2;
 
         if (!blackoutList.isEmpty()) {
-            int firstSecBoReq = getSecBoReq(blackoutList.get(0));
-            Set<Integer> secBoReqSet = new HashSet<Integer>();
+            int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
+            Set<Integer> secFromBoStrSet = new HashSet<Integer>();
             for (String boString : blackoutList) {
-                int secBoReq = getSecBoReq(boString);
-                if ((secBoReq - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
-                    secBoReqSet.add(secBoReq);
+                int secFromBoStr = getSecFromBoStr(boString);
+                if ((secFromBoStr - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
+                    secFromBoStrSet.add(secFromBoStr);
             }
-            if (secBoReqSet.size() > 2)
+            if (secFromBoStrSet.size() > 2)
                 existTwoSuccessBoReq = true;
         }
 
         assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
-
-
-//        String patternServerHello = "\\s*(\\d+)\\s(\\d+\\.\\d{9}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).*\\bServer Hello\\b.*";
-//        String blackouts = "\\\\\\\\";
-
-//        boolean existBlackout = false;
-//        String s = "";
-//        long startTimeStream = 0;
-//        long finishTimeStream = 0;
-//        int rerunBlackoutCount = 0;
-//        while (rerunBlackoutCount < 4) {
-//            s = tsharkProcessStreamReader.readLine();
-//            if (s == null)
-//                break;
-//            else if (s.contains(device.getIP()) && Arrays.stream(TEST_STREAM_IP).anyMatch(s::contains) && s.contains(START_STREAM_SERVER_MSG)) {
-//                existBlackout = true;
-//            } else if (s.contains(device.getIP()) && s.contains(BLACKOUTS_IP)) {
-//                rerunBlackoutCount++;
-//                if (rerunBlackoutCount < 1)
-//                    startTimeStream = System.nanoTime() / 1000000000;
-//                else if (rerunBlackoutCount == 3)
-//                    finishTimeStream = System.nanoTime() / 1000000000;
-//            }
-//        }
-
-//        assertThat("Отсутствие видеопотока", existBlackout, equalTo(true));
-//        assertThat("Отправка запросов каждые 15 секунд", finishTimeStream - startTimeStream, equalTo(30));
     }
 
-    private int getSecBoReq(String s) {
+    private int getSecFromBoStr(String s) {
         return Math.round(Float.parseFloat(s.split(" +")[1]));
     }
 }
