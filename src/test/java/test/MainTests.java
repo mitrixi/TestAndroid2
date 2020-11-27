@@ -92,13 +92,13 @@ public class MainTests {
         // tmp for test
         System.out.println("Блэкауты:");
         blackoutList.forEach(boString -> {
-            System.out.println(boString + " -/////- " + getSecFromBoStr(boString));
+            System.out.println(boString);
         });
         // tmp for test
 
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
-            Set<Integer> secFromBoStrSet = new HashSet<Integer>();
+            Set<Integer> secFromBoStrSet = new HashSet<>();
             blackoutList.forEach(boString -> {
                 int secFromBoStr = getSecFromBoStr(boString);
                 if ((secFromBoStr - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
