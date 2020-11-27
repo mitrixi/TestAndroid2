@@ -18,8 +18,6 @@ import static test.TestUtils.getPidOfProcess;
 public class MainTests {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
-    public final static String START_STREAM_CLIENT_MSG = "Client Hello";
-    public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40;
 
@@ -49,7 +47,7 @@ public class MainTests {
 
         TimeUnit.SECONDS.sleep(SLEEP_TIME_BLACKOUT);
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         boolean isStreamStart = false;
@@ -57,19 +55,21 @@ public class MainTests {
         while (tsharkProcessStreamReader.ready()) {
             strStream = tsharkProcessStreamReader.readLine();
             System.out.println(strStream);
-            if (strStream.contains(device.getDeviceIp()) && Arrays.stream(TEST_STREAM_IP).anyMatch(strStream::contains) && strStream.contains(START_STREAM_SERVER_MSG)) {
+            if (strStream.contains(START_STREAM_SERVER_MSG)) {
                 isStreamStart = true;
                 break;
             }
         }
 
         boolean existBlackout = false;
-        String strBlackout;
+        String timeFirstAppearanceBlackout;
+        String strBlackout = "";
         while (tsharkProcessBlackoutReader.ready()) {
             strBlackout = tsharkProcessBlackoutReader.readLine();
             System.out.println(strBlackout);
             if (strBlackout.contains(START_STREAM_SERVER_MSG)) {
                 existBlackout = true;
+                timeFirstAppearanceBlackout = strBlackout.split(" ")[1].split("\\.")[0];
                 break;
             }
         }
@@ -79,30 +79,23 @@ public class MainTests {
 
         /******** Step 2 ********/
 
-//        String patternServerHello = "\\s*(\\d+)\\s(\\d+\\.\\d{9}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).+(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}).*\\bServer Hello\\b.*";
-//        String blackouts = "\\\\\\\\";
+        boolean existBlackout2 = false;
+        String s;
+        int rerunBlackoutCount = 0;
 
-//        boolean existBlackout = false;
-//        String s = "";
-//        long startTimeStream = 0;
-//        long finishTimeStream = 0;
-//        int rerunBlackoutCount = 0;
-//        while (rerunBlackoutCount < 4) {
-//            s = tsharkProcessStreamReader.readLine();
-//            if (s == null)
+
+        while (tsharkProcessBlackoutReader.ready()) {
+            s = tsharkProcessBlackoutReader.readLine();
+            System.out.println(s);
+//            if (s == null) {
 //                break;
-//            else if (s.contains(device.getIP()) && Arrays.stream(TEST_STREAM_IP).anyMatch(s::contains) && s.contains(START_STREAM_SERVER_MSG)) {
-//                existBlackout = true;
-//            } else if (s.contains(device.getIP()) && s.contains(BLACKOUTS_IP)) {
-//                rerunBlackoutCount++;
-//                if (rerunBlackoutCount < 1)
-//                    startTimeStream = System.nanoTime() / 1000000000;
-//                else if (rerunBlackoutCount == 3)
-//                    finishTimeStream = System.nanoTime() / 1000000000;
+//            } else if (s.contains(device.getDeviceIp()) && s.contains(BLACKOUTS_IP)) {
+//
+//
 //            }
-//        }
+        }
 
-//        assertThat("Отсутствие видеопотока", existBlackout, equalTo(true));
+//        assertThat("Отсутствие видеопотока", existBlackout2, equalTo(true));
 //        assertThat("Отправка запросов каждые 15 секунд", finishTimeStream - startTimeStream, equalTo(30));
     }
 }
