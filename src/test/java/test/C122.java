@@ -45,7 +45,7 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSec = (int) jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec");
+        int restrictionsPeriodSec = Integer.parseInt(jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
 
