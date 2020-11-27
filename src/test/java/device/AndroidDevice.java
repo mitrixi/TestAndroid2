@@ -81,4 +81,9 @@ public class AndroidDevice implements IDevice {
     public void allowBlackout() throws IOException {
         Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
     }
+
+    @Override
+    public boolean seeBlackout() {
+        return true;
+    }
 }
