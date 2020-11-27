@@ -67,6 +67,7 @@ public class MainTests {
         while (tsharkProcessBlackoutReader.ready()) {
             blackoutList.add(tsharkProcessBlackoutReader.readLine());
         }
+        blackoutList.remove(0); // удаляем т.к. первая строчка Capturing on 'Ethernet: en0'
 
         boolean existBlackout = false;
         if (!blackoutList.isEmpty()) {
