@@ -72,6 +72,7 @@ public class MainTests {
         for (String bo: blackoutList) {
             if (bo.contains(START_STREAM_SERVER_MSG)) {
                 existBlackout = true;
+                break;
             }
         }
 
