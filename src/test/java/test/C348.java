@@ -27,14 +27,12 @@ public class C348 {
     public final static int SLEEP_TIME_BLACKOUT = 40;
 
     @BeforeClass
-    @Step
     public void preinstallations() throws IOException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         device.allowBlackout();
     }
 
     @Test(enabled = false)
-    @Step
     public void C348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
