@@ -65,8 +65,9 @@ public class MainTests {
         }
 
         List<String> blackoutList = new ArrayList<>(); // используется для Step 2
+        String boLine;
         while (tsharkProcessBlackoutReader.ready()) {
-            String boLine = tsharkProcessStreamReader.readLine();
+            boLine = tsharkProcessBlackoutReader.readLine();
             if (boLine.contains(START_STREAM_SERVER_MSG)) {
                 blackoutList.add(boLine);
             }
