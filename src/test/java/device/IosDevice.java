@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -27,6 +28,7 @@ public class IosDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
+    @Singleton
     public IosDevice() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
