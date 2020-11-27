@@ -24,7 +24,7 @@ public class C122 {
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
     public final static int SLEEP_TIME_STREAM = 10;
 
-    @Test
+    @Test(alwaysRun = true)
     public void C122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
