@@ -3,6 +3,7 @@ package test;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -16,13 +17,19 @@ import static org.hamcrest.Matchers.equalTo;
 import static test.TestUtils.*;
 import static test.TestUtils.getSecFromBoStr;
 
-public class MainTests {
+public class C348 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
     public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40;
+
+    @BeforeClass
+    public void preinstallations() throws IOException {
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
+        device.allowBlackout();
+    }
 
     @Test(enabled = false)
     public void C348() throws IOException, InterruptedException {
@@ -81,7 +88,7 @@ public class MainTests {
         /******** Step 2 ********/
 
         int boSuccessCount = 2;
-        int secBoReqInterval = 15;
+        int secBoReqInterval = 15; // todo jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec")
         int secBoReqLag = 2;
 
         // 1) Должно быть еще 2 успешных запроса. (сам факт)

@@ -12,4 +12,6 @@ public interface IDevice {
     String getDeviceIp();
     void restrictBlackout() throws IOException;
     void allowBlackout() throws IOException;
+
+    boolean seeBlackout();
 }
