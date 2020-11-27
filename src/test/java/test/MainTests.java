@@ -84,7 +84,6 @@ public class MainTests {
         /******** Step 2 ********/
 
         // Должно быть еще 2 успешных запроса. (сам факт)
-
         boolean existTwoSuccessBoReq = false;
 
         int boSuccessCount = 2;
@@ -96,7 +95,7 @@ public class MainTests {
             Set<Integer> secBoReqSet = new HashSet<Integer>();
             for (String boString : blackoutList) {
                 int secBoReq = getSecBoReq(boString);
-                if ((secBoReq - firstSecBoReq) < (boSuccessCount * secBoReqInterval + secBoReqLag))
+                if ((secBoReq - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
                     secBoReqSet.add(secBoReq);
             }
             if (secBoReqSet.size() > 2)
