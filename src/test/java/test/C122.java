@@ -22,7 +22,6 @@ public class C122 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
-    public final static int SLEEP_TIME_STREAM = 10;
 
     @Test(alwaysRun = true)
     public void C122() throws IOException, InterruptedException {
@@ -47,12 +46,13 @@ public class C122 {
 
         int restrictionsPeriodSec = (int) jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec");
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
-
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
-        TimeUnit.SECONDS.sleep(SLEEP_TIME_STREAM);
+        device.stepOk();
+
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
+
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
         boolean isStreamStart = false;
@@ -79,12 +79,9 @@ public class C122 {
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
         assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
 
-
         /******** Step 3 ********/
 
         device.allowBlackout();
-
-
 
 
     }
