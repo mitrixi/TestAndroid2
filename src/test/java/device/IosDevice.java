@@ -91,12 +91,12 @@ public class IosDevice implements IDevice {
 
     @Override
     public void restrictBlackout() throws IOException {
-
+        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
     }
 
     @Override
     public void allowBlackout() throws IOException {
-
+        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
     }
 
     private CharSequence getRestrictionsApiIP(String configFileUrl) throws IOException {
