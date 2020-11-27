@@ -27,8 +27,7 @@ public class C348 {
 
     @BeforeClass
     public void preinstallations() throws IOException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
-        device.allowBlackout();
+        new AndroidDevice().allowBlackout(); // ToDo
     }
 
     @Test(alwaysRun = true)
