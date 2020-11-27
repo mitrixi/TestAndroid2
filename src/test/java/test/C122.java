@@ -43,13 +43,15 @@ public class C122 {
 
         /******** Step 2 ********/
 
+        JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);
+
         device.stepToConfigUrl(CONFIG_FILE_URL);
         device.stepOk();
         System.out.println("before fail");
-        System.out.println(jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_api_url").toString());
+        System.out.println(jsonConfigFile2.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_api_url").toString());
         System.out.println("after fail");
 
-        int restrictionsPeriodSec = Integer.parseInt(jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
+        int restrictionsPeriodSec = Integer.parseInt(jsonConfigFile2.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
 
