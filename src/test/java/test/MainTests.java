@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static test.TestUtils.getPidOfProcess;
+import static test.TestUtils.*;
 
 public class MainTests {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
@@ -78,35 +78,45 @@ public class MainTests {
             }
         }
 
-        assertThat("C348_Step1: Видеопоток отсутствует", isStreamStart, equalTo(true));
+        assertThat("C348_Step1: Видеопоток ОТСУТСТВУЕТ", isStreamStart, equalTo(true));
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
 
         /******** Step 2 ********/
-
-        // Должно быть еще 2 успешных запроса. (сам факт)
-        boolean existTwoSuccessBoReq = false;
 
         int boSuccessCount = 2;
         int secBoReqInterval = 15;
         int secBoReqLag = 2;
 
+        // 1) Должно быть еще 2 успешных запроса. (сам факт)
+        boolean existTwoSuccessBoReq = false;
+        // 2) Запросы отправляются каждые 15 секунд
+        boolean isPeriodicityBoReq = true;
+
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
             Set<Integer> secFromBoStrSet = new HashSet<Integer>();
-            for (String boString : blackoutList) {
+            blackoutList.forEach(boString -> {
                 int secFromBoStr = getSecFromBoStr(boString);
                 if ((secFromBoStr - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
                     secFromBoStrSet.add(secFromBoStr);
-            }
+            });
+
+            // 1)
             if (secFromBoStrSet.size() > 2)
                 existTwoSuccessBoReq = true;
+
+            // 2) Анализируем отправку только первых boSuccessCount запросов
+            int indexBoString = 0;
+            for (String boString : blackoutList) {
+                if ((indexBoString > 0 && indexBoString <= boSuccessCount) && !(getSecFromBoStr(boString) >= (firstSecBoReq + secBoReqInterval * indexBoString - secBoReqLag) && getSecFromBoStr(boString) <= (firstSecBoReq + secBoReqInterval * indexBoString + secBoReqLag))) {
+                    isPeriodicityBoReq = false;
+                }
+                indexBoString++;
+            }
         }
 
         assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
-    }
-
-    private int getSecFromBoStr(String s) {
-        return Math.round(Float.parseFloat(s.split(" +")[1]));
+        assertThat("C348_Step2: Периодичность отправки запросов НАРУШЕНА", isPeriodicityBoReq, equalTo(true));
     }
 }
 

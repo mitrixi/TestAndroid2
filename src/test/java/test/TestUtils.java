@@ -9,7 +9,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class TestUtils {
-
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -59,5 +58,9 @@ public class TestUtils {
             pid = -1;
         }
         return pid;
+    }
+
+    public static int getSecFromBoStr(String s) {
+        return Math.round(Float.parseFloat(s.split(" +")[1]));
     }
 }
