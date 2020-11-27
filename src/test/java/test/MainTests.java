@@ -57,7 +57,7 @@ public class MainTests {
         String strStream;
         while (tsharkProcessStreamReader.ready()) {
             strStream = tsharkProcessStreamReader.readLine();
-            System.out.println(strStream);
+            System.out.println(strStream); // tmp for test
             if (strStream.contains(START_STREAM_SERVER_MSG)) {
                 isStreamStart = true;
                 break;
@@ -69,7 +69,7 @@ public class MainTests {
         while (tsharkProcessBlackoutReader.ready()) {
             boLine = tsharkProcessBlackoutReader.readLine();
             if (boLine.contains(START_STREAM_SERVER_MSG)) {
-                blackoutList.add(boLine);
+                blackoutList.add(boLine.trim());
             }
         }
 
@@ -89,11 +89,12 @@ public class MainTests {
         // 2) Запросы отправляются каждые 15 секунд
         boolean isPeriodicityBoReq = true;
 
-        // test
+        // tmp for test
+        System.out.println("Блэкауты:");
         blackoutList.forEach(boString -> {
             System.out.println(boString + " -/////- " + getSecFromBoStr(boString));
         });
-        //test
+        // tmp for test
 
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
