@@ -93,6 +93,7 @@ public class MainTests {
         boolean isPeriodicityBoReq = true;
 
         if (!blackoutList.isEmpty()) {
+            System.out.println(blackoutList.get(0)); //test
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
             Set<Integer> secFromBoStrSet = new HashSet<Integer>();
             blackoutList.forEach(boString -> {
