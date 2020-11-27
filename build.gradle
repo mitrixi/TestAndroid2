@@ -32,7 +32,7 @@ compileJava.options.encoding = 'UTF-8'
 
 test {
     useTestNG()
-    ignoreFailures = true
+//    ignoreFailures = true
     testLogging.showStandardStreams = true
 }
 
