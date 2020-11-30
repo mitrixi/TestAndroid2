@@ -39,16 +39,23 @@ public class C122 {
         System.out.println("C122");
         System.out.println("C122");
 
-        device.restrictBlackout();
-
+        //////////////////////////////////////
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
-
         JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
         boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
-
         System.out.println(broadcasting_allowed);
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
+        //////////////////////////////////////
 
+        device.restrictBlackout();
+
+        ////////////////////////////////////////
+        JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);
+        String urlBlackout2 = jsonConfigFile2.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
+        JSONObject jsonBlackout2 = readJsonFromUrl(urlBlackout2);
+        boolean broadcasting_allowed2 = Boolean.parseBoolean(jsonBlackout2.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+        System.out.println(broadcasting_allowed2);
+        /////////////////////////////////
 
         /******** Step 2 ********/
 
