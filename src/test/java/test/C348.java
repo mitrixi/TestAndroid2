@@ -26,11 +26,11 @@ public class C348 {
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
 
-    @BeforeClass
-    public void preinstallations() throws IOException {
+//    @BeforeClass
+//    public void preinstallations() throws IOException {
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 //        device.allowBlackout(); // ToDo
-    }
+//    }
 
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
@@ -38,8 +38,6 @@ public class C348 {
         device.allowBlackout(); // ToDo
 
         /******** Step 1 ********/
-
-        System.out.println("DEVICE: " + device.toString());
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
