@@ -44,6 +44,11 @@ public enum AndroidDevice implements IDevice {
     }
 
     @Override
+    public void takeScreenshot() throws IOException {
+
+    }
+
+    @Override
     public void stepToConfigUrl(String configFileUrl) {
         MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
         inputField.sendKeys(configFileUrl);

@@ -3,6 +3,8 @@ package device;
 import java.io.IOException;
 
 public interface IDevice {
+    void takeScreenshot() throws IOException;
+
     void stepToConfigUrl(String configFileUrl);
     void stepOk();
     void stepCancelStream();

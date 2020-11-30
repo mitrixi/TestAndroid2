@@ -3,15 +3,21 @@ package device;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import javax.inject.Singleton;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
@@ -49,6 +55,16 @@ public enum IosDevice implements IDevice {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void takeScreenshot() throws IOException {
+        String folder_name="screenshot";
+        File f=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        //create dir with given folder name
+        new File(folder_name).mkdir();
+        //coppy screenshot file into screenshot folder.
+        FileUtils.copyFile(f,new File(folder_name + "/" + "testScr"));
     }
 
     @Override

@@ -36,6 +36,8 @@ public class C348 {
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
+        device.takeScreenshot();
+
         /******** Step 1 ********/
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
