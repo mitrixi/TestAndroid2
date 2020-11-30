@@ -1,5 +1,8 @@
 package device;
 
+import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.WebElement;
+
 import java.io.IOException;
 
 public interface IDevice {
@@ -14,4 +17,6 @@ public interface IDevice {
     void allowBlackout() throws IOException;
 
     boolean seeBlackout();
+
+    public AppiumDriver<WebElement> getDriver();
 }

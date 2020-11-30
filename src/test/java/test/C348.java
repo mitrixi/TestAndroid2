@@ -3,6 +3,7 @@ package test;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,7 @@ public class C348 {
     public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
+    IDevice device;
 
 //    @BeforeClass
 //    public void preinstallations() throws IOException {
@@ -34,7 +36,7 @@ public class C348 {
 
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         device.allowBlackout(); // ToDo
         TimeUnit.SECONDS.sleep(5);
 
@@ -131,6 +133,13 @@ public class C348 {
 
         assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
         assertThat("C348_Step2: Периодичность отправки запросов НАРУШЕНА", isPeriodicityBoReq, equalTo(true));
+
+
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        device.getDriver().quit();
     }
 }
 

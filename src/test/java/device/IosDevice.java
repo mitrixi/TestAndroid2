@@ -118,4 +118,8 @@ public enum IosDevice implements IDevice {
         InetAddress restrictionsInetAddress = InetAddress.getByName(new URL(restrictionsApiUrl).getHost());
         return restrictionsInetAddress.getHostAddress();
     }
+
+    public AppiumDriver<WebElement> getDriver() {
+        return driver;
+    }
 }

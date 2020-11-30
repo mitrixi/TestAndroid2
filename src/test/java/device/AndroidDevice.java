@@ -96,4 +96,8 @@ public enum AndroidDevice implements IDevice {
     public boolean seeBlackout() {
         return true;
     }
+
+    public AppiumDriver<WebElement> getDriver() {
+        return driver;
+    }
 }

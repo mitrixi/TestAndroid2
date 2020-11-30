@@ -7,6 +7,7 @@ import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import org.json.JSONObject;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -27,10 +28,11 @@ public class C122 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
+    IDevice device;
 
     @Test
     public void c122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         /******** Step 1 ********/
@@ -91,5 +93,10 @@ public class C122 {
 
 //        device.allowBlackout();
 
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        device.getDriver().quit();
     }
 }
