@@ -54,5 +54,13 @@ public class TestoviyClass {
         boolean broadcasting_allowed4 = Boolean.parseBoolean(jsonBlackout4.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
         System.out.println(broadcasting_allowed4);
 
+        device.restrictBlackout(); // ToDo
+        TimeUnit.SECONDS.sleep(5);
+
+        JSONObject jsonConfigFile5 = readJsonFromUrl("http://10.254.0.131/");
+        String urlBlackout5 = jsonConfigFile5.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
+        JSONObject jsonBlackout5 = readJsonFromUrl(urlBlackout5);
+        boolean broadcasting_allowed5 = Boolean.parseBoolean(jsonBlackout5.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+        System.out.println(broadcasting_allowed5);
     }
 }
