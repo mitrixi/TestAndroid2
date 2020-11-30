@@ -24,7 +24,7 @@ public class C348 {
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
     public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
-    public final static int SLEEP_TIME_BLACKOUT = 40;
+    public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
 
     @BeforeClass
     public void preinstallations() throws IOException {
