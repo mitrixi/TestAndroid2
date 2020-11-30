@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,8 +37,8 @@ public class C122 {
 
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 
-        JSONObject json3 = readJsonFromUrl(urlBlackout);
-        boolean broadcasting_allowed = Boolean.parseBoolean(json3.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+        JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
+        boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
 
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
 

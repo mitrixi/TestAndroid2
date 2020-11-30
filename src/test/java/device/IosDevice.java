@@ -111,7 +111,7 @@ public enum IosDevice implements IDevice {
         return false;
     }
 
-    private CharSequence getRestrictionsApiIP(String configFileUrl) throws IOException {
+    private String getRestrictionsApiIP(String configFileUrl) throws IOException {
         JSONObject json = readJsonFromUrl(configFileUrl);
 
         String restrictionsApiUrl = json.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
