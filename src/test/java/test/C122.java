@@ -6,6 +6,7 @@ import com.google.inject.Guice;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import io.qameta.allure.Step;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -30,19 +31,20 @@ public class C122 {
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
     IDevice device;
 
+    @Step(value = "C122")
     @Test
     public void c122() throws IOException, InterruptedException {
 //        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
+
         /******** Step 1 ********/
         device.restrictBlackout();
 
+        //пауза для возможности отработать команде по ssh
         TimeUnit.SECONDS.sleep(5);
 
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
-
-
 
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 

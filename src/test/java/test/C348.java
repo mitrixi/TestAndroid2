@@ -5,6 +5,7 @@ import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -35,12 +36,14 @@ public class C348 {
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 //        device.allowBlackout(); // ToDo
 //    }
-
+    @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
 //        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         device.allowBlackout(); // ToDo
+
+        //пауза для возможности отработать команде по ssh
         TimeUnit.SECONDS.sleep(5);
 
         /******** Step 1 ********/
