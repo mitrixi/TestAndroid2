@@ -33,7 +33,7 @@ public class C348 {
     }
 
     @Test(enabled = false)
-    public void C348() throws IOException, InterruptedException {
+    public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
         /******** Step 1 ********/
