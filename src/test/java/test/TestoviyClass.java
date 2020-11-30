@@ -7,12 +7,13 @@ import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
 
 public class TestoviyClass {
     @Test
-    public void test() throws IOException {
+    public void test() throws IOException, InterruptedException {
 
 
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
@@ -25,6 +26,7 @@ public class TestoviyClass {
         System.out.println(broadcasting_allowed);
 
         device.allowBlackout(); // ToDo
+        TimeUnit.SECONDS.sleep(10);
 
 
         JSONObject jsonConfigFile2 = readJsonFromUrl("http://10.254.0.131/");
