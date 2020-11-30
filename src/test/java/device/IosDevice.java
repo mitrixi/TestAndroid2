@@ -61,10 +61,8 @@ public enum IosDevice implements IDevice {
     public void takeScreenshot() throws IOException {
         String folder_name="screenshot";
         File f=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        //create dir with given folder name
-        new File(folder_name).mkdir();
-        //coppy screenshot file into screenshot folder.
-        FileUtils.copyFile(f,new File(folder_name + "/" + "testScr"));
+
+        FileUtils.copyFile(f,new File("/Users/mmtr/testScr.png"));
     }
 
     @Override
