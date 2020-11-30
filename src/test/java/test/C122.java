@@ -28,7 +28,7 @@ public class C122 {
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    @Test
+    @Test(enabled = false)
     public void c122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
@@ -46,8 +46,8 @@ public class C122 {
         System.out.println(broadcasting_allowed);
         //////////////////////////////////////
 
-        device.restrictBlackout();
-//        device.allowBlackout();
+//        device.restrictBlackout();
+        device.allowBlackout();
 
         ////////////////////////////////////////
         JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);

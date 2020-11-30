@@ -33,7 +33,7 @@ public class C348 {
 //        device.allowBlackout(); // ToDo
 //    }
 
-    @Test(alwaysRun = true)
+    @Test(enabled = false)
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
