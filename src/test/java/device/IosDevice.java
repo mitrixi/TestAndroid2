@@ -106,13 +106,15 @@ public enum IosDevice implements IDevice {
     }
 
     @Override
-    public void restrictBlackout() throws IOException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
+    public void restrictBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
+        pr.waitFor();
     }
 
     @Override
-    public void allowBlackout() throws IOException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
+    public void allowBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
+        pr.waitFor();
     }
 
     @Override

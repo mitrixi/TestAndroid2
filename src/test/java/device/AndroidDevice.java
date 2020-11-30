@@ -80,14 +80,14 @@ public enum AndroidDevice implements IDevice {
 
     @Override
     public void restrictBlackout() throws IOException, InterruptedException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
-        TimeUnit.SECONDS.sleep(2);
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
+        pr.waitFor();
     }
 
     @Override
     public void allowBlackout() throws IOException, InterruptedException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
-        TimeUnit.SECONDS.sleep(2);
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
+        pr.waitFor();
     }
 
     @Override
