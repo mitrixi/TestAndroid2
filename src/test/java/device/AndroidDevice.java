@@ -5,6 +5,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import java.io.IOException;
@@ -12,8 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-@Singleton
-public class AndroidDevice implements IDevice {
+public enum AndroidDevice implements IDevice {
+
+    INSTANCE;
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_blackout_sniffing.sh";
@@ -25,7 +27,7 @@ public class AndroidDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    public AndroidDevice() throws MalformedURLException {
+    AndroidDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("noReset", true);
@@ -33,7 +35,11 @@ public class AndroidDevice implements IDevice {
         capabilities.setCapability("udid", "a6eaa0e2");
         capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
 
-        driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+        try {
+            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 

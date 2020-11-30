@@ -16,8 +16,9 @@ import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
 
-@Singleton
-public class IosDevice implements IDevice {
+public enum IosDevice implements IDevice {
+
+    INSTANCE;
 
     public final static String IOS_DEVICE_IP = "10.254.7.106";
     public final static String SSH = "ssh -tt mmtr@10.254.7.106 ";
@@ -29,7 +30,7 @@ public class IosDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    public IosDevice() throws MalformedURLException {
+    IosDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
         capabilities.setCapability("deviceName", "iPhone (MMTR)");
@@ -42,7 +43,11 @@ public class IosDevice implements IDevice {
         capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
         capabilities.setCapability("useNewWDA", true);
 
-        driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
+        try {
+            driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
