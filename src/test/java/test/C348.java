@@ -39,6 +39,10 @@ public class C348 {
 
         /******** Step 1 ********/
 
+        System.out.println("C348");
+        System.out.println("C348");
+        System.out.println("C348");
+
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
         // Запускаем tshark, читаем из консоли Stream

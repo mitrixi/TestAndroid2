@@ -35,6 +35,10 @@ public class C122 {
 
         /******** Step 1 ********/
 
+        System.out.println("C122");
+        System.out.println("C122");
+        System.out.println("C122");
+
         device.restrictBlackout();
 
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
@@ -47,6 +51,10 @@ public class C122 {
 
 
         /******** Step 2 ********/
+
+        System.out.println("C122 2");
+        System.out.println("C122 2");
+        System.out.println("C122 2");
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
