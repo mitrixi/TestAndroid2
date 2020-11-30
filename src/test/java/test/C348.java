@@ -28,16 +28,16 @@ public class C348 {
 
     @BeforeClass
     public void preinstallations() throws IOException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-        device.allowBlackout(); // ToDo
+//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+//        device.allowBlackout(); // ToDo
     }
 
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device.allowBlackout(); // ToDo
 
         /******** Step 1 ********/
-        device.allowBlackout(); // строчка потестить
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
