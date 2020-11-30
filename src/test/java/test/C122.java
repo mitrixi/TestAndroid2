@@ -3,6 +3,7 @@ package test;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import io.qameta.allure.Step;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
@@ -21,6 +22,7 @@ public class C122 {
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
+    @Step(value="C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;

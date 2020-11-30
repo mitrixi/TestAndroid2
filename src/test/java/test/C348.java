@@ -3,6 +3,7 @@ package test;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -31,6 +32,7 @@ public class C348 {
         device.allowBlackout(); // ToDo
     }
 
+    @Step(value="C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
