@@ -143,9 +143,9 @@ public class C348 {
 
     }
 
-    @AfterMethod
-    public void tearDown() {
-        device.getDriver().quit();
-    }
+//    @AfterMethod
+//    public void tearDown() {
+//        device.getDriver().quit();
+//    }
 }
 
