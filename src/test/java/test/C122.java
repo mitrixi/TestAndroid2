@@ -47,7 +47,7 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSec = (int) jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec");
+        int restrictionsPeriodSec = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
 
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
