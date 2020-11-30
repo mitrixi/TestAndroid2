@@ -37,10 +37,12 @@ public class C122 {
 
         /******** Step 1 ********/
         device.restrictBlackout();
+
+        TimeUnit.SECONDS.sleep(5);
+
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
 
-        TimeUnit.SECONDS.sleep(5);
 
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 
