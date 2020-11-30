@@ -26,7 +26,7 @@ public class TestoviyClass {
         System.out.println(broadcasting_allowed);
 
         device.allowBlackout(); // ToDo
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(5);
 
 
         JSONObject jsonConfigFile2 = readJsonFromUrl("http://10.254.0.131/");
@@ -36,6 +36,7 @@ public class TestoviyClass {
         System.out.println(broadcasting_allowed2);
 
         device.restrictBlackout(); // ToDo
+        TimeUnit.SECONDS.sleep(5);
 
 
         JSONObject jsonConfigFile3 = readJsonFromUrl("http://10.254.0.131/");
@@ -45,6 +46,7 @@ public class TestoviyClass {
         System.out.println(broadcasting_allowed3);
 
         device.allowBlackout(); // ToDo
+        TimeUnit.SECONDS.sleep(5);
 
         JSONObject jsonConfigFile4 = readJsonFromUrl("http://10.254.0.131/");
         String urlBlackout4 = jsonConfigFile4.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
