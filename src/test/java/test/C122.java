@@ -32,7 +32,8 @@ public class C122 {
 
     @Test
     public void c122() throws IOException, InterruptedException {
-        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+//        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         /******** Step 1 ********/
