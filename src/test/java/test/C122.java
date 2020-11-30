@@ -38,7 +38,6 @@ public class C122 {
 
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
 
-
         /******** Step 2 ********/
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
