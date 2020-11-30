@@ -86,7 +86,9 @@ public class C348 {
         System.out.println("******* " + existBlackout);
 
         assertThat("C348_Step1: Видеопоток ОТСУТСТВУЕТ", isStreamStart, equalTo(true));
+        if (!isStreamStart) System.out.println("C348_Step1: Видеопоток ОТСУТСТВУЕТ");
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
+        if (!existBlackout) System.out.println("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)");
 
         /******** Step 2 ********/
 
@@ -130,7 +132,9 @@ public class C348 {
         }
 
         assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
+        if (!existTwoSuccessBoReq) System.out.println("C348_Step2: Ещё двух запросов на блэкауты НЕТ");
         assertThat("C348_Step2: Периодичность отправки запросов НАРУШЕНА", isPeriodicityBoReq, equalTo(true));
+        if (!isPeriodicityBoReq) System.out.println("C348_Step2: Периодичность отправки запросов НАРУШЕНА");
     }
 }
 

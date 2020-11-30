@@ -34,9 +34,10 @@ public class C122 {
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 
         JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
-        boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+        boolean isBroadcastingAllowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
 
-        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
+        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", isBroadcastingAllowed, equalTo(true));
+        if (!isBroadcastingAllowed) System.out.println("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию");
 
         /******** Step 2 ********/
 
@@ -78,7 +79,9 @@ public class C122 {
         boolean seeBlackout = device.seeBlackout();
 
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
+        if (!isStreamStart) System.out.println("C122_Step2: Видеопоток отсутствует");
         assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
+        if (!seeBlackout) System.out.println("C122_Step2: Блэкаут НЕ виден");
 
         /******** Step 3 ********/
 
@@ -114,6 +117,8 @@ public class C122 {
         }
 
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
+        if (!isStreamStartStep3) System.out.println("C122_Step3: Видеопоток отсутствует");
         assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
+        if (!isBoOnScreenShot) System.out.println("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута");
     }
 }
