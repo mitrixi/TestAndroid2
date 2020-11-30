@@ -46,8 +46,8 @@ public class C122 {
         System.out.println(broadcasting_allowed);
         //////////////////////////////////////
 
-//        device.restrictBlackout();
-        device.allowBlackout();
+        device.restrictBlackout();
+//        device.allowBlackout();
 
         ////////////////////////////////////////
         JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);
