@@ -60,7 +60,7 @@ public enum IosDevice implements IDevice {
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
-        if(driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
+        if (driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
             MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
             openVitrinaBtn.click();
         }
@@ -124,7 +124,7 @@ public enum IosDevice implements IDevice {
     public boolean isBoOnScreenShot() throws IOException {
         File f=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         CompareImg compareImg = new CompareImg();
-        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_TSHARK_START_SCRIPT_FILE).getPath());
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_BO_SCR_FILE).getPath());
     }
 
     private String getRestrictionsApiIP(String configFileUrl) throws IOException {
