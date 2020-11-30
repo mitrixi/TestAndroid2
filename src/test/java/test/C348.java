@@ -1,8 +1,10 @@
 package test;
 
+import com.codeborne.selenide.Driver;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
+import io.appium.java_client.MobileElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -41,6 +43,9 @@ public class C348 {
         TimeUnit.SECONDS.sleep(5);
 
         /******** Step 1 ********/
+
+        MobileElement inputField = (MobileElement) device.getDriver().findElementById("af.afaf.fsdf:id/asdf");
+        inputField.sendKeys("asdfasdfasfd");
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
