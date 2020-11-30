@@ -1,5 +1,6 @@
 package test;
 
+import android.media.AudioManager;
 import com.google.inject.Guice;
 import device.AndroidDevice;
 import device.IDevice;
@@ -79,11 +80,13 @@ public class C122 {
         boolean seeBlackout = device.seeBlackout();
 
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
+//        assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
 
         /******** Step 3 ********/
 
         device.allowBlackout();
+
+//        AudioManager audioManager = new AudioManager();
 
 
     }

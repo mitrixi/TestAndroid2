@@ -52,4 +52,7 @@ dependencies {
 //    https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
     compile group: 'org.openpnp', name: 'opencv', version: '3.4.2-0'
+    compile group: 'com.google.android', name: 'android', version: '4.1.1.4'
+//    compile group: 'com.android.support', name: 'appcompat-v7', version: '27.1.1'
+
 }
