@@ -27,7 +27,7 @@ public class C122 {
 
     @Test(alwaysRun = true)
     public void C122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         /******** Step 1 ********/
@@ -37,7 +37,7 @@ public class C122 {
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 
         JSONObject json3 = readJsonFromUrl(urlBlackout);
-        boolean broadcasting_allowed = (boolean) json3.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed");
+        boolean broadcasting_allowed = Boolean.parseBoolean(json3.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
 
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
 
