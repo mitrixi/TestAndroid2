@@ -37,6 +37,7 @@ public class C348 {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
+        device.allowBlackout(); // строчка потестить
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
