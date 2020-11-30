@@ -3,8 +3,6 @@ package device;
 import java.io.IOException;
 
 public interface IDevice {
-    void takeScreenshot() throws IOException;
-
     void stepToConfigUrl(String configFileUrl);
     void stepOk();
     void stepCancelStream();
@@ -16,4 +14,5 @@ public interface IDevice {
     void allowBlackout() throws IOException;
 
     boolean seeBlackout();
+    boolean isBoOnScreenShot() throws IOException;
 }

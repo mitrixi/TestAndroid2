@@ -9,15 +9,13 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import test.CompareImg;
 
-import javax.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
@@ -32,6 +30,8 @@ public enum IosDevice implements IDevice {
     public final static String IOS_TSHARK_START_CMD_FOR_BO = SSH + "'/usr/local/bin/tshark -Y \"tls.handshake.session_id && ip.dst == " + IOS_DEVICE_IP + " && ip.src == {1}\"'";
     public final static String IOS_TSHARK_BLACKOUT_SNIFFING = "tshark_blackout_sniffing.sh";
     public final static String IOS_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
+
+    public final static String IOS_BO_SCR_FILE = "iOsBoScr.jpg"; // вывод для консоли
     //    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
 
     AppiumDriver<WebElement> driver;
@@ -55,14 +55,6 @@ public enum IosDevice implements IDevice {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void takeScreenshot() throws IOException {
-        String folder_name="screenshot";
-        File f=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-
-        FileUtils.copyFile(f,new File("/Users/mmtr/testScr.png"));
     }
 
     @Override
@@ -123,6 +115,13 @@ public enum IosDevice implements IDevice {
     @Override
     public boolean seeBlackout() {
         return false;
+    }
+
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
+        File f=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        CompareImg compareImg = new CompareImg();
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_TSHARK_START_SCRIPT_FILE).getPath());
     }
 
     private String getRestrictionsApiIP(String configFileUrl) throws IOException {

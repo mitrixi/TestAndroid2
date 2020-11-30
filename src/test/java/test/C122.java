@@ -1,20 +1,14 @@
 package test;
 
-import com.google.inject.Guice;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,18 +16,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static test.TestUtils.getPidOfProcess;
 import static test.TestUtils.readJsonFromUrl;
 
-import com.github.kilianB.hash.Hash;
-import com.github.kilianB.hashAlgorithms.AverageHash;
-import com.github.kilianB.hashAlgorithms.HashingAlgorithm;
-import com.github.kilianB.hashAlgorithms.PerceptiveHash;
-import com.github.kilianB.matcher.exotic.SingleImageMatcher;
-
 public class C122 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    @Test(alwaysRun = true, enabled = false)
+    @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
@@ -64,6 +52,9 @@ public class C122 {
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+
+        device.stepCancelStream();
 
         boolean isStreamStart = false;
         String strStream;
@@ -93,6 +84,35 @@ public class C122 {
 
         device.allowBlackout();
 
+        device.stepToConfigUrl(CONFIG_FILE_URL);
 
+        restrictionsPeriodSec = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
+
+        tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
+        tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
+
+        device.stepOk();
+
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
+
+        boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд после перезапуска приложения.
+
+        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+
+        device.stepCancelStream();
+
+        isStreamStart = false;
+        while (tsharkProcessStreamReader.ready()) {
+            strStream = tsharkProcessStreamReader.readLine();
+            System.out.println(strStream);
+            if (strStream.contains(START_STREAM_SERVER_MSG)) {
+                isStreamStart = true;
+                break;
+            }
+        }
+
+        assertThat("C122_Step3: Видеопоток отсутствует", isStreamStart, equalTo(true));
+        assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
     }
 }

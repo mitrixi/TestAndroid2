@@ -6,7 +6,6 @@ import device.IosDevice;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,15 +31,13 @@ public class C348 {
         device.allowBlackout(); // ToDo
     }
 
-    @Test(alwaysRun = true)
+    @Test(alwaysRun = true, enabled = false)
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
-
-        device.takeScreenshot();
 
         // Запускаем tshark, читаем из консоли Stream
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());

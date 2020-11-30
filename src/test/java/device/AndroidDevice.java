@@ -5,9 +5,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.stereotype.Component;
 
-import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,11 +39,6 @@ public enum AndroidDevice implements IDevice {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void takeScreenshot() throws IOException {
-
     }
 
     @Override
@@ -97,6 +90,11 @@ public enum AndroidDevice implements IDevice {
 
     @Override
     public boolean seeBlackout() {
+        return false; // ToDo это будет isBoOnScreenShot
+    }
+
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
         return true;
     }
 }

@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class CompareImg {
-    public boolean compareBo(File file) throws IOException {
-        File img0 = new File("/Users/mmtr/Fox.png");
-        File img1 = new File("/Users/mmtr/FoxWhiteLine.jpg");
+    public boolean compareBo(File screenshot, String defaultScreenshotPath) throws IOException {
+        File img0 = screenshot;
+        File img1 = new File(defaultScreenshotPath);
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
 
