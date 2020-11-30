@@ -48,9 +48,6 @@ public class C348 {
 
         /******** Step 1 ********/
 
-//        MobileElement inputField = (MobileElement) device.getDriver().findElementById("af.afaf.fsdf:id/asdf");
-//        inputField.sendKeys("asdfasdfasfd");
-
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
         // Запускаем tshark, читаем из консоли Stream
