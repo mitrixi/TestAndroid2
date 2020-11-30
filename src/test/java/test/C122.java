@@ -28,42 +28,27 @@ public class C122 {
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    @Test(enabled = false)
+    @Test
     public void c122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         /******** Step 1 ********/
 
-        System.out.println("C122");
-        System.out.println("C122");
-        System.out.println("C122");
+        device.restrictBlackout();
 
-        //////////////////////////////////////
+        TimeUnit.SECONDS.sleep(5);
+
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
+
         JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
         boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+
         System.out.println(broadcasting_allowed);
-        //////////////////////////////////////
-
-//        device.restrictBlackout();
-        device.allowBlackout();
-
-        ////////////////////////////////////////
-        JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);
-        String urlBlackout2 = jsonConfigFile2.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
-        JSONObject jsonBlackout2 = readJsonFromUrl(urlBlackout2);
-        boolean broadcasting_allowed2 = Boolean.parseBoolean(jsonBlackout2.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
-        System.out.println(broadcasting_allowed2);
-        /////////////////////////////////
-
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
 
-        /******** Step 2 ********/
 
-        System.out.println("C122 2");
-        System.out.println("C122 2");
-        System.out.println("C122 2");
+        /******** Step 2 ********/
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 

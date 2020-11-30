@@ -3,7 +3,6 @@ package test;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
-import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -33,33 +32,13 @@ public class C348 {
 //        device.allowBlackout(); // ToDo
 //    }
 
-    @Test(enabled = false)
+    @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-
-        ///////////////////////////////////////
-        JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
-        String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
-        JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
-        boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
-        System.out.println(broadcasting_allowed);
-        /////////////////////////////////
-
         device.allowBlackout(); // ToDo
-
-        ///////////////////////////////////////
-        JSONObject jsonConfigFile2 = readJsonFromUrl(CONFIG_FILE_URL);
-        String urlBlackout2 = jsonConfigFile2.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
-        JSONObject jsonBlackout2 = readJsonFromUrl(urlBlackout2);
-        boolean broadcasting_allowed2 = Boolean.parseBoolean(jsonBlackout2.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
-        System.out.println(broadcasting_allowed2);
-        /////////////////////////////////
+        TimeUnit.SECONDS.sleep(5);
 
         /******** Step 1 ********/
-
-        System.out.println("C348");
-        System.out.println("C348");
-        System.out.println("C348");
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
