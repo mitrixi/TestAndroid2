@@ -5,6 +5,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -59,8 +60,10 @@ public enum IosDevice implements IDevice {
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
-        MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
-        openVitrinaBtn.click();
+        if(driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
+            MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
+            openVitrinaBtn.click();
+        }
 
         MobileElement linkBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"icon link\"]");
         linkBtn.click();
