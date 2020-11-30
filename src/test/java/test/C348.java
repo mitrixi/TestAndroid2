@@ -82,6 +82,9 @@ public class C348 {
 
         boolean existBlackout = blackoutList.isEmpty() ? false : true;
 
+
+        System.out.println("******* " + existBlackout);
+
         assertThat("C348_Step1: Видеопоток ОТСУТСТВУЕТ", isStreamStart, equalTo(true));
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
 
