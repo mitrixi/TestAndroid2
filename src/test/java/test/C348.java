@@ -26,7 +26,7 @@ public class C348 {
     public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
 
     @BeforeClass
-    public void preinstallations() throws IOException {
+    public void preinstallations() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         device.allowBlackout(); // ToDo
     }
