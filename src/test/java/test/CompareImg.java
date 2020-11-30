@@ -13,6 +13,7 @@ public class CompareImg {
     public boolean compareBo(File screenshot, String defaultScreenshotPath) throws IOException {
         File img0 = screenshot;
         File img1 = new File(defaultScreenshotPath);
+        // FileUtils.copyFile(img0,new File("/Users/mmtr/testScr.png")) // Для сохранения/тестов
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
 
