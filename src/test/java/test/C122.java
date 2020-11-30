@@ -27,7 +27,7 @@ public class C122 {
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
     @Test(alwaysRun = true)
-    public void C122() throws IOException, InterruptedException {
+    public void c122() throws IOException, InterruptedException {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
