@@ -119,7 +119,8 @@ public class IosDevice implements IDevice {
         return restrictionsInetAddress.getHostAddress();
     }
 
-    public AppiumDriver<WebElement> getDriver() {
-        return driver;
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
+        return false;
     }
 }

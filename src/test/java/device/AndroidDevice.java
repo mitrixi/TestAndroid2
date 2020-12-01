@@ -97,7 +97,8 @@ public class AndroidDevice implements IDevice {
         return true;
     }
 
-    public AppiumDriver<WebElement> getDriver() {
-        return driver;
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
+        return true;
     }
 }

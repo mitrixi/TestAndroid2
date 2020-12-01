@@ -1,7 +1,6 @@
 package test;
 
-import android.content.Context;
-import android.media.AudioManager;
+
 import com.google.inject.Guice;
 import device.AndroidDevice;
 import device.IDevice;
@@ -91,17 +90,47 @@ public class C122 {
 
         boolean seeBlackout = device.seeBlackout();
 
+        if (!isStreamStart) System.out.println("C122_Step2: Видеопоток отсутствует");
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-//        assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
+        if (seeBlackout) System.out.println("C122_Step2: Блэкаут виден");
+        assertThat("C122_Step2: Блэкаут виден", seeBlackout, equalTo(false));
 
         /******** Step 3 ********/
 
-//        device.allowBlackout();
+        device.allowBlackout();
 
+        device.stepToConfigUrl(CONFIG_FILE_URL);
+
+        int restrictionsPeriodSecStep3 = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
+
+        Process tsharkProcessStreamStep3 = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
+        BufferedReader tsharkProcessStreamReaderStep3 = new BufferedReader(new InputStreamReader(tsharkProcessStreamStep3.getInputStream()));
+
+        device.stepOk();
+
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
+
+        boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд после перезапуска приложения.
+
+        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+
+        device.stepCancelStream();
+
+        boolean isStreamStartStep3 = false;
+        String strStreamStep3;
+        while (tsharkProcessStreamReaderStep3.ready()) {
+            strStreamStep3 = tsharkProcessStreamReaderStep3.readLine();
+            System.out.println(strStreamStep3);
+            if (strStreamStep3.contains(START_STREAM_SERVER_MSG)) {
+                isStreamStartStep3 = true;
+                break;
+            }
+        }
+
+        if (!isStreamStartStep3) System.out.println("C122_Step3: Видеопоток отсутствует");
+        assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
+        if (!isBoOnScreenShot) System.out.println("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута");
+        assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
     }
-
-//    @AfterMethod
-//    public void tearDown() {
-//        device.getDriver().quit();
-//    }
 }

@@ -17,6 +17,5 @@ public interface IDevice {
     void allowBlackout() throws IOException;
 
     boolean seeBlackout();
-
-    public AppiumDriver<WebElement> getDriver();
+    boolean isBoOnScreenShot() throws IOException;
 }
