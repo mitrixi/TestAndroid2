@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 import static test.TestUtils.readJsonFromUrl;
 
-public class IosDevice implements IDevice {
+public enum IosDevice implements IDevice {
 
-//    INSTANCE;
+    INSTANCE;
 
     public final static String IOS_DEVICE_IP = "10.254.7.106";
     public final static String SSH = "ssh -tt mmtr@10.254.7.106 ";
@@ -37,7 +37,7 @@ public class IosDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    public IosDevice() {
+    IosDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
         capabilities.setCapability("deviceName", "iPhone (MMTR)");
@@ -135,10 +135,5 @@ public class IosDevice implements IDevice {
         String restrictionsApiUrl = json.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
         InetAddress restrictionsInetAddress = InetAddress.getByName(new URL(restrictionsApiUrl).getHost());
         return restrictionsInetAddress.getHostAddress();
-    }
-
-    @Override
-    public boolean isBoOnScreenShot() throws IOException {
-        return false;
     }
 }

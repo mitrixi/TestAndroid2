@@ -29,14 +29,14 @@ public class C348 {
 
     @BeforeClass
     public void preinstallations() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
         device.allowBlackout(); // ToDo
     }
 
     @Step(value="C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
 
         /******** Step 1 ********/
 
