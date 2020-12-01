@@ -36,7 +36,6 @@ public class C122 {
         /******** Step 1 ********/
 
         device.restrictBlackout();
-        TimeUnit.SECONDS.sleep(5);  // ожидание для возможности отработать команде по ssh
 
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
@@ -51,7 +50,7 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSec = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
+        int restrictionsPeriodSec = (jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").getInt("restrictions_period_sec"));
 
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
@@ -60,7 +59,7 @@ public class C122 {
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
@@ -95,7 +94,7 @@ public class C122 {
 
         device.allowBlackout();
 
-        device.stepToConfigUrl(CONFIG_FILE_URL);
+        //лишняя строчка device.stepToConfigUrl(CONFIG_FILE_URL);
 
         int restrictionsPeriodSecStep3 = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
 
@@ -108,7 +107,7 @@ public class C122 {
 
         boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд после перезапуска приложения.
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
