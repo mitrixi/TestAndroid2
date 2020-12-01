@@ -47,15 +47,18 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
-        if (driver.isBrowser()) {
-            driver.quit();
-            try {
-                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }
 
+        // КОСТЫЛЬ на время неполноценной версии приложения
+        try {
+            TimeUnit.SECONDS.sleep(60);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
         inputField.sendKeys(configFileUrl);
     }
