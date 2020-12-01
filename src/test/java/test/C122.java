@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,7 @@ public class C122 {
         /******** Step 1 ********/
 
         device.restrictBlackout();
+        TimeUnit.SECONDS.sleep(5);  // ожидание для возможности отработать команде по ssh
 
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
