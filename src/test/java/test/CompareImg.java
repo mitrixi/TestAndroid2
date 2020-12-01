@@ -5,6 +5,7 @@ import com.github.kilianB.hashAlgorithms.AverageHash;
 import com.github.kilianB.hashAlgorithms.HashingAlgorithm;
 import com.github.kilianB.hashAlgorithms.PerceptiveHash;
 import com.github.kilianB.matcher.exotic.SingleImageMatcher;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class CompareImg {
     public boolean compareBo(File screenshot, String defaultScreenshotPath) throws IOException {
         File img0 = screenshot;
         File img1 = new File(defaultScreenshotPath);
-//        FileUtils.copyFile(img0, new File("/home/mitrixi/testScr.png")); // Для сохранения/тестов
+        FileUtils.copyFile(img0, new File("/home/mitrixi/Pictures/testScr.png")); // Для сохранения/тестов
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
 
