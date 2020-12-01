@@ -82,8 +82,8 @@ public class C122 {
 
         if (!isStreamStart) System.out.println("C122_Step2: Видеопоток отсутствует");
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        if (!seeBlackout) System.out.println("C122_Step2: Блэкаут НЕ виден");
-        assertThat("C122_Step2: Блэкаут НЕ виден", seeBlackout, equalTo(false));
+        if (seeBlackout) System.out.println("C122_Step2: Блэкаут виден");
+        assertThat("C122_Step2: Блэкаут виден", seeBlackout, equalTo(false));
 
         /******** Step 3 ********/
 
