@@ -27,9 +27,10 @@ public class AndroidDevice implements IDevice {
     public final static String ANDR_BLACKOUTS_IP = "151.236.95.210";
 
     AppiumDriver<WebElement> driver;
+    DesiredCapabilities capabilities;
 
     public AndroidDevice() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("noReset", true);
         capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
@@ -41,30 +42,22 @@ public class AndroidDevice implements IDevice {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
-        MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
-        inputField.sendKeys(configFileUrl);
+        if (driver.isBrowser()) {
+            driver.quit();
+            try {
+                driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
-
-
-
-
-
-
-        if (driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
-            MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
-            openVitrinaBtn.click();
+            MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
+            inputField.sendKeys(configFileUrl);
         }
-
-        MobileElement linkBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"icon link\"]");
-        linkBtn.click();
-
-        MobileElement btnSubmit = (MobileElement) driver.findElementByXPath("//XCUIElementTypeAlert[@name=\"Адрес конфигурации компании\"]");
-        btnSubmit.sendKeys(configFileUrl);
     }
 
     @Override
