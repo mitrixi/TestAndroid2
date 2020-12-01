@@ -100,8 +100,8 @@ public class C122 {
 
     }
 
-//    @AfterMethod
-//    public void tearDown() {
-//        device.getDriver().quit();
-//    }
+    @AfterMethod
+    public void tearDown() {
+        device.getDriver().quit();
+    }
 }
