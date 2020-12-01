@@ -35,8 +35,8 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
+//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
         device.allowBlackout(); // ToDo

@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public enum  AndroidDevice implements IDevice {
+public class AndroidDevice implements IDevice {
 
-    INSTANCE;
+//    INSTANCE;
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_blackout_sniffing.sh";
@@ -27,7 +27,7 @@ public enum  AndroidDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    AndroidDevice() {
+    public AndroidDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("noReset", true);
