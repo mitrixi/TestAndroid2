@@ -125,6 +125,7 @@ public enum IosDevice implements IDevice {
     @Override
     public boolean isBoOnScreenShot() throws IOException {
         File f = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        System.out.println(f.getPath());
         CompareImg compareImg = new CompareImg();
         return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_BO_SCR_FILE).getPath());
     }
