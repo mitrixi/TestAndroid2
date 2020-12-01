@@ -39,8 +39,8 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-//        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
+//        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
         device.allowBlackout(); // ToDo
 
         //пауза для возможности отработать команде по ssh
@@ -143,9 +143,9 @@ public class C348 {
 
     }
 
-    @AfterMethod
-    public void tearDown() {
-        device.getDriver().quit();
-    }
+//    @AfterMethod
+//    public void tearDown() {
+//        device.getDriver().quit();
+//    }
 }
 

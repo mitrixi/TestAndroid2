@@ -34,8 +34,8 @@ public class C122 {
     @Step(value = "C122")
     @Test
     public void c122() throws IOException, InterruptedException {
-        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-//        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
+//        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
 
 
         /******** Step 1 ********/
@@ -100,8 +100,8 @@ public class C122 {
 
     }
 
-    @AfterMethod
-    public void tearDown() {
-        device.getDriver().quit();
-    }
+//    @AfterMethod
+//    public void tearDown() {
+//        device.getDriver().quit();
+//    }
 }
