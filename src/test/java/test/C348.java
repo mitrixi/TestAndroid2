@@ -74,6 +74,8 @@ public class C348 {
                 break;
             }
         }
+        
+        tsharkProcessStreamReader.close();
 
         List<String> blackoutList = new ArrayList<>(); // используется для Step 2
         String boLine;
@@ -83,8 +85,10 @@ public class C348 {
                 blackoutList.add(boLine.trim());
             }
         }
+        
+        tsharkProcessBlackoutReader.close();
 
-        boolean existBlackout = blackoutList.isEmpty() ? false : true;
+        boolean existBlackout = !blackoutList.isEmpty();
 
         assertThat("C348_Step1: Видеопоток ОТСУТСТВУЕТ", isStreamStart, equalTo(true));
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
@@ -102,9 +106,7 @@ public class C348 {
 
         // tmp for test
         System.out.println("Блэкауты:");
-        blackoutList.forEach(boString -> {
-            System.out.println(boString);
-        });
+        blackoutList.forEach(System.out::println);
         // tmp for test
 
         if (!blackoutList.isEmpty()) {

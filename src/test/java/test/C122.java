@@ -76,6 +76,8 @@ public class C122 {
             }
         }
 
+        tsharkProcessStreamReader.close();
+
 //        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.getTsharkStartBlackout(CONFIG_FILE_URL));
 //        BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
 //
@@ -121,6 +123,8 @@ public class C122 {
                 break;
             }
         }
+
+        tsharkProcessStreamReaderStep3.close();
 
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
         assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
