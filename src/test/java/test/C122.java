@@ -38,7 +38,6 @@ public class C122 {
         JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
         boolean isBroadcastingAllowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
 
-        if (!isBroadcastingAllowed) System.out.println("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию");
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", isBroadcastingAllowed, equalTo(true));
 
         /******** Step 2 ********/
@@ -80,9 +79,7 @@ public class C122 {
 
         boolean seeBlackout = device.seeBlackout();
 
-        if (!isStreamStart) System.out.println("C122_Step2: Видеопоток отсутствует");
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        if (seeBlackout) System.out.println("C122_Step2: Блэкаут виден");
         assertThat("C122_Step2: Блэкаут виден", seeBlackout, equalTo(false));
 
         /******** Step 3 ********/
@@ -118,9 +115,7 @@ public class C122 {
             }
         }
 
-        if (!isStreamStartStep3) System.out.println("C122_Step3: Видеопоток отсутствует");
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
-        if (!isBoOnScreenShot) System.out.println("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута");
         assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
     }
 }
