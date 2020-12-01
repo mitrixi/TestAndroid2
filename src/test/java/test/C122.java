@@ -101,7 +101,7 @@ public class C122 {
         Process tsharkProcessStreamStep3 = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReaderStep3 = new BufferedReader(new InputStreamReader(tsharkProcessStreamStep3.getInputStream()));
 
-        device.stepOk();
+        //лишняя строчка device.stepOk();
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
 
