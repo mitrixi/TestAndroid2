@@ -89,7 +89,8 @@ public class AndroidDevice implements IDevice {
     @Override
     public void allowBlackout() throws IOException, InterruptedException {
         Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
-        pr.waitFor();
+        TimeUnit.SECONDS.sleep(5);
+//        pr.waitFor();
     }
 
     @Override
