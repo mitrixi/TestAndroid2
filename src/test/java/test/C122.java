@@ -94,14 +94,14 @@ public class C122 {
 
         device.allowBlackout();
 
-        //лишняя строчка device.stepToConfigUrl(CONFIG_FILE_URL);
+        device.stepToConfigUrl(CONFIG_FILE_URL);
 
         int restrictionsPeriodSecStep3 = Integer.parseInt(jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_period_sec").toString());
 
         Process tsharkProcessStreamStep3 = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReaderStep3 = new BufferedReader(new InputStreamReader(tsharkProcessStreamStep3.getInputStream()));
 
-        //лишняя строчка device.stepOk();
+        device.stepOk();
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
 

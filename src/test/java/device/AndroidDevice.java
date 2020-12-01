@@ -3,6 +3,7 @@ package device;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.stereotype.Component;
@@ -40,13 +41,30 @@ public class AndroidDevice implements IDevice {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
         MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
         inputField.sendKeys(configFileUrl);
+
+
+
+
+
+
+
+        if (driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
+            MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
+            openVitrinaBtn.click();
+        }
+
+        MobileElement linkBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"icon link\"]");
+        linkBtn.click();
+
+        MobileElement btnSubmit = (MobileElement) driver.findElementByXPath("//XCUIElementTypeAlert[@name=\"Адрес конфигурации компании\"]");
+        btnSubmit.sendKeys(configFileUrl);
     }
 
     @Override
@@ -58,6 +76,7 @@ public class AndroidDevice implements IDevice {
     @Override
     public void stepCancelStream() {
         // Закрывается сам через 1мин
+
     }
 
     @Override
