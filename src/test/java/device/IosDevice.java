@@ -3,11 +3,16 @@ package device;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import test.CompareImg;
 
-import javax.inject.Singleton;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -26,6 +31,8 @@ public class IosDevice implements IDevice {
     public final static String IOS_TSHARK_START_CMD_FOR_BO = SSH + "'/usr/local/bin/tshark -Y \"tls.handshake.session_id && ip.dst == " + IOS_DEVICE_IP + " && ip.src == {1}\"'";
     public final static String IOS_TSHARK_BLACKOUT_SNIFFING = "tshark_blackout_sniffing.sh";
     public final static String IOS_TSHARK_STOP_SCRIPT_FILE = "tshark_stop_script.sh";
+
+    public final static String IOS_BO_SCR_FILE = "iOsBoScr.jpg"; // вывод для консоли
     //    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
 
     AppiumDriver<WebElement> driver;
@@ -53,8 +60,10 @@ public class IosDevice implements IDevice {
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
-        MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
-        openVitrinaBtn.click();
+        if (driver.findElements(By.xpath("//XCUIElementTypeButton[@name=\"icon link\"]")).size() == 0) {
+            MobileElement openVitrinaBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"ОТКРЫТЬ\"]");
+            openVitrinaBtn.click();
+        }
 
         MobileElement linkBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"icon link\"]");
         linkBtn.click();
@@ -97,18 +106,27 @@ public class IosDevice implements IDevice {
     }
 
     @Override
-    public void restrictBlackout() throws IOException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
+    public void restrictBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
+        pr.waitFor();
     }
 
     @Override
-    public void allowBlackout() throws IOException {
-        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
+    public void allowBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
+        pr.waitFor();
     }
 
     @Override
     public boolean seeBlackout() {
         return false;
+    }
+
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
+        File f = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        CompareImg compareImg = new CompareImg();
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_BO_SCR_FILE).getPath());
     }
 
     private String getRestrictionsApiIP(String configFileUrl) throws IOException {

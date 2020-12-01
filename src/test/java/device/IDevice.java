@@ -13,8 +13,8 @@ public interface IDevice {
     String getTsharkStartBlackout(String configFileUrl) throws IOException;
     String getTsharkStopFilePath();
     String getDeviceIp();
-    void restrictBlackout() throws IOException;
-    void allowBlackout() throws IOException;
+    void restrictBlackout() throws IOException, InterruptedException;
+    void allowBlackout() throws IOException, InterruptedException;
 
     boolean seeBlackout();
     boolean isBoOnScreenShot() throws IOException;

@@ -81,20 +81,20 @@ public class AndroidDevice implements IDevice {
     }
 
     @Override
-    public void restrictBlackout() throws IOException {
-//        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_OFF.sh'");
-        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("allow_broadcasts.sh").getPath());
+    public void restrictBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("allow_broadcasts.sh").getPath());
+        pr.waitFor();
     }
 
     @Override
-    public void allowBlackout() throws IOException {
-//        Runtime.getRuntime().exec("ssh root@10.254.0.131 '/home/mitrixi/Local_C/IdeaProjects/ConfigsForVitrinaTV/script_blackout_ON.sh'");
-        Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
+    public void allowBlackout() throws IOException, InterruptedException {
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
+        pr.waitFor();
     }
 
     @Override
     public boolean seeBlackout() {
-        return true;
+        return false; // ToDo это будет isBoOnScreenShot
     }
 
     @Override

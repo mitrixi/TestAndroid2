@@ -1,13 +1,10 @@
 package test;
 
-
-import com.google.inject.Guice;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import io.qameta.allure.Step;
 import org.json.JSONObject;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -28,31 +25,24 @@ public class C122 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
-    IDevice device;
 
-    @Step(value = "C122")
-    @Test
+    @Step(value="C122")
+    @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-//        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
-
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
-        device.restrictBlackout();
 
-        //пауза для возможности отработать команде по ssh
-        TimeUnit.SECONDS.sleep(5);
+        device.restrictBlackout();
 
         JSONObject jsonConfigFile = readJsonFromUrl(CONFIG_FILE_URL);
 
         String urlBlackout = jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
 
         JSONObject jsonBlackout = readJsonFromUrl(urlBlackout);
-        boolean broadcasting_allowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
+        boolean isBroadcastingAllowed = Boolean.parseBoolean(jsonBlackout.getJSONArray("restrictions").getJSONObject(0).get("broadcasting_allowed").toString());
 
-        System.out.println(broadcasting_allowed);
-        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", broadcasting_allowed, equalTo(true));
-
+        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", isBroadcastingAllowed, equalTo(true));
 
         /******** Step 2 ********/
 
@@ -68,6 +58,9 @@ public class C122 {
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+
+        device.stepCancelStream();
 
         boolean isStreamStart = false;
         String strStream;
@@ -90,9 +83,7 @@ public class C122 {
 
         boolean seeBlackout = device.seeBlackout();
 
-        if (!isStreamStart) System.out.println("C122_Step2: Видеопоток отсутствует");
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        if (seeBlackout) System.out.println("C122_Step2: Блэкаут виден");
         assertThat("C122_Step2: Блэкаут виден", seeBlackout, equalTo(false));
 
         /******** Step 3 ********/
@@ -128,9 +119,7 @@ public class C122 {
             }
         }
 
-        if (!isStreamStartStep3) System.out.println("C122_Step3: Видеопоток отсутствует");
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
-        if (!isBoOnScreenShot) System.out.println("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута");
         assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
     }
 }

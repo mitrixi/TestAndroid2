@@ -1,12 +1,9 @@
 package test;
 
-import com.codeborne.selenide.Driver;
 import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
-import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -29,22 +26,17 @@ public class C348 {
     public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
     public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
-    IDevice device;
 
-//    @BeforeClass
-//    public void preinstallations() throws IOException {
-//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-//        device.allowBlackout(); // ToDo
-//    }
-    @Step(value = "C348")
+    @BeforeClass
+    public void preinstallations() throws IOException, InterruptedException {
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        device.allowBlackout(); // ToDo
+    }
+
+    @Step(value="C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-//        device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
-        device = "iPhone".equals(System.getenv("deviceType")) ? new IosDevice() : new AndroidDevice();
-        device.allowBlackout(); // ToDo
-
-        //пауза для возможности отработать команде по ssh
-        TimeUnit.SECONDS.sleep(5);
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
 
@@ -139,13 +131,6 @@ public class C348 {
 
         assertThat("C348_Step2: Ещё двух запросов на блэкауты НЕТ", existTwoSuccessBoReq, equalTo(true));
         assertThat("C348_Step2: Периодичность отправки запросов НАРУШЕНА", isPeriodicityBoReq, equalTo(true));
-
-
     }
-
-//    @AfterMethod
-//    public void tearDown() {
-//        device.getDriver().quit();
-//    }
 }
 

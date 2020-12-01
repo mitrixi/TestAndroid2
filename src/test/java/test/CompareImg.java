@@ -26,7 +26,7 @@ public class CompareImg {
             //Considered a duplicate in this particular case
         }
 
-//Chaining multiple matcher for single image comparison
+        //Chaining multiple matcher for single image comparison
 
         SingleImageMatcher matcher = new SingleImageMatcher();
         matcher.addHashingAlgorithm(new AverageHash(64),.3);
