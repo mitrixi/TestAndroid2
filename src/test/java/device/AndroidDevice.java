@@ -54,10 +54,10 @@ public class AndroidDevice implements IDevice {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
-            MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
-            inputField.sendKeys(configFileUrl);
         }
+
+        MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
+        inputField.sendKeys(configFileUrl);
     }
 
     @Override
