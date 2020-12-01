@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class AndroidDevice implements IDevice {
+public enum  AndroidDevice implements IDevice {
 
-//    INSTANCE;
+    INSTANCE;
 
     public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
     public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_blackout_sniffing.sh";
@@ -27,7 +27,7 @@ public class AndroidDevice implements IDevice {
 
     AppiumDriver<WebElement> driver;
 
-    public AndroidDevice() {
+    AndroidDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "android");
         capabilities.setCapability("noReset", true);
@@ -90,7 +90,7 @@ public class AndroidDevice implements IDevice {
     public void allowBlackout() throws IOException, InterruptedException {
         Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
         TimeUnit.SECONDS.sleep(5);
-//        pr.waitFor();
+        pr.waitFor();
     }
 
     @Override
