@@ -7,20 +7,15 @@ import io.qameta.allure.Step;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static test.TestUtils.getPidOfProcess;
-import static test.TestUtils.readJsonFromUrl;
+import static service.TestUtils.getPidOfProcess;
+import static service.TestUtils.readJsonFromUrl;
 
 public class C122 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";

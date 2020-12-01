@@ -5,9 +5,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.stereotype.Component;
 
-import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,9 +15,9 @@ public class AndroidDevice implements IDevice {
 
 //    INSTANCE;
 
-    public final static String ANDR_TSHARK_START_SCRIPT_FILE = "andr_tshark_start_script.sh";
-    public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "andr_tshark_blackout_sniffing.sh";
-    public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "andr_tshark_stop_script.sh";
+    public final static String ANDR_TSHARK_START_SCRIPT_FILE = "tsharkScript/andr_tshark_start_script.sh";
+    public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "tsharkScript/andr_tshark_blackout_sniffing.sh";
+    public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "tsharkScript/andr_tshark_stop_script.sh";
     //    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
@@ -82,13 +80,13 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public void restrictBlackout() throws IOException, InterruptedException {
-        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("allow_broadcasts.sh").getPath());
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/allow_broadcasts.sh").getPath());
         pr.waitFor();
     }
 
     @Override
     public void allowBlackout() throws IOException, InterruptedException {
-        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/restrict_broadcasts.sh").getPath());
         TimeUnit.SECONDS.sleep(5);
 //        pr.waitFor();
     }
