@@ -3,22 +3,19 @@ package device;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import service.CompareImg;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static service.TestUtils.readJsonFromUrl;
+import static service.ImageCompare.compareBo;
 
 public enum IosDevice implements IDevice {
 
@@ -124,15 +121,6 @@ public enum IosDevice implements IDevice {
     @Override
     public boolean isBoOnScreenShot() throws IOException {
         File f = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        CompareImg compareImg = new CompareImg();
-        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(IOS_BO_SCR_FILE).getPath());
-    }
-
-    private String getRestrictionsApiIP(String configFileUrl) throws IOException {
-        JSONObject json = readJsonFromUrl(configFileUrl);
-
-        String restrictionsApiUrl = json.getJSONObject("result").getJSONObject("sdk_config").get("restrictions_api_url").toString();
-        InetAddress restrictionsInetAddress = InetAddress.getByName(new URL(restrictionsApiUrl).getHost());
-        return restrictionsInetAddress.getHostAddress();
+        return compareBo(f, this.getClass().getClassLoader().getResource(IOS_BO_SCR_FILE).getPath());
     }
 }

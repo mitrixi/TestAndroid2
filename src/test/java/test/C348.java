@@ -4,27 +4,36 @@ import device.AndroidDevice;
 import device.IDevice;
 import device.IosDevice;
 import io.qameta.allure.Step;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import service.ConfigUrl;
 
+import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static service.TestUtils.*;
+import static service.TestUtils.getPidOfProcess;
 import static service.TestUtils.getSecFromBoStr;
 
 public class C348 {
+
+    @Inject
+    ConfigUrl configUrl;
+
+    // ToDo см С122
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
+
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
     public final static String[] TEST_STREAM_IP = {"92.223.99.99", "178.176.158.69", "195.161.167.68"}; // СТС ToDo изменить на динамический
     public final static int SLEEP_TIME_STREAM = 10;
-    public final static int SLEEP_TIME_BLACKOUT = 40; // Todo это restrictionsPeriodSec * boSuccessCount + 10
 
 //    @BeforeClass
 //    public void preinstallations() throws IOException, InterruptedException {
@@ -37,9 +46,13 @@ public class C348 {
         IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
+        int boSuccessCount = 2;
+        int secBoReqInterval = configUrl.getRestrictionsPeriodSec(CONFIG_FILE_URL);
+        int secBoReqLag = 2;
+
         /******** Step 1 ********/
 
-        device.allowBlackout(); // ToDo
+        device.allowBlackout();
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
@@ -57,7 +70,7 @@ public class C348 {
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
-        TimeUnit.SECONDS.sleep(SLEEP_TIME_BLACKOUT);
+        TimeUnit.SECONDS.sleep(secBoReqInterval * 2 + secBoReqLag);
 
         Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
@@ -94,10 +107,6 @@ public class C348 {
         assertThat("C348_Step1: Запрос на restrictions_api_url НЕ отправляется (блэкауты)", existBlackout, equalTo(true));
 
         /******** Step 2 ********/
-
-        int boSuccessCount = 2;
-        int secBoReqInterval = 15; // todo jsonConfigFile.getJSONObject("results").getJSONObject("sdk_config").get("restrictions_period_sec")
-        int secBoReqLag = 2;
 
         // 1) Должно быть еще 2 успешных запроса. (сам факт)
         boolean existTwoSuccessBoReq = false;
