@@ -25,6 +25,7 @@ public class CompareImg {
 
         if (similarityScore < .2) {
             //Considered a duplicate in this particular case
+            return true;
         }
 
         //Chaining multiple matcher for single image comparison
