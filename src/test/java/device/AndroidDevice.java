@@ -121,13 +121,9 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public boolean isBoOnScreenShot() throws IOException {
-        System.out.println("1");
         File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        System.out.println("2");
 //        FileUtils.copyFile(f, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
-        System.out.println("3");
         CompareImg compareImg = new CompareImg();
-        System.out.println("4");
         return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }
