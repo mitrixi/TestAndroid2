@@ -12,11 +12,18 @@ import java.io.IOException;
 
 public class CompareImg {
     public boolean compareBo(File screenshot, String defaultScreenshotPath) throws IOException {
+        System.out.println(5);
+
         File img0 = screenshot;
+        System.out.println("6");
+
         File img1 = new File(defaultScreenshotPath);
+        System.out.println("7");
         FileUtils.copyFile(img0, new File("/home/mitrixi/Pictures/testScr.png")); // Для сохранения/тестов
+        System.out.println(8);
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
+        System.out.println(9);
 
         Hash hash0 = hasher.hash(img0);
         Hash hash1 = hasher.hash(img1);
