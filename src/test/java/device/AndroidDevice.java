@@ -3,6 +3,7 @@ package device;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -121,6 +122,8 @@ public class AndroidDevice implements IDevice {
     @Override
     public boolean isBoOnScreenShot() throws IOException {
         File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(f, new File("/home/mitrixi/Pictures/testScr.png")); // Для сохранения/тестов
+
         CompareImg compareImg = new CompareImg();
         return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
