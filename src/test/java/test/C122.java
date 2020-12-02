@@ -52,7 +52,7 @@ public class C122 {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4L);
 
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
@@ -98,7 +98,7 @@ public class C122 {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2L);
 
         boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд после перезапуска приложения.
 

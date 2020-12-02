@@ -34,9 +34,6 @@ public class CompareImg {
         matcher.addHashingAlgorithm(new AverageHash(64), .3);
         matcher.addHashingAlgorithm(new PerceptiveHash(32), .2);
 
-        if (matcher.checkSimilarity(img0, img1)) {
-            return true;
-        }
-        return false;
+        return matcher.checkSimilarity(img0, img1);
     }
 }
