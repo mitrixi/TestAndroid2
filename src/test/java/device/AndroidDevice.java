@@ -4,9 +4,13 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import service.CompareImg;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,6 +27,9 @@ public class AndroidDevice implements IDevice {
     public final static String ANDR_DEVICE_IP = "10.10.0.102";
     public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
     public final static String ANDR_BLACKOUTS_IP = "151.236.95.210";
+
+    public final static String ANDR_BO_SCR_FILE = "screenshot/andrBoScr.jpg"; // вывод для консоли
+
 
     AppiumDriver<WebElement> driver;
     DesiredCapabilities capabilities;
@@ -113,6 +120,8 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public boolean isBoOnScreenShot() throws IOException {
-        return true;
+        File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        CompareImg compareImg = new CompareImg();
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }
