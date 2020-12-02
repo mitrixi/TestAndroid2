@@ -82,17 +82,17 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public String getTsharkStartFilePath() {
-        return this.getClass().getResource(ANDR_TSHARK_START_SCRIPT_FILE).getPath();
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_START_SCRIPT_FILE).getPath();
     }
 
     @Override
     public String getTsharkStartBlackout(String configFileUrl) {
-        return this.getClass().getResource(ANDR_TSHARK_BLACKOUT_SNIFFING).getPath();
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_BLACKOUT_SNIFFING).getPath();
     }
 
     @Override
     public String getTsharkStopFilePath() {
-        return this.getClass().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath();
+        return this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath();
     }
 
     @Override
@@ -128,6 +128,6 @@ public class AndroidDevice implements IDevice {
         System.out.println("3");
         CompareImg compareImg = new CompareImg();
         System.out.println("4");
-        return compareImg.compareBo(f, this.getClass().getResource(ANDR_BO_SCR_FILE).getPath());
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }
