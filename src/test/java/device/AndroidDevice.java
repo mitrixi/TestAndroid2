@@ -101,14 +101,14 @@ public class AndroidDevice implements IDevice {
 
     @Override
     public void restrictBlackout() throws IOException, InterruptedException {
-        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("allow_broadcasts.sh").getPath());
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/allow_broadcasts.sh").getPath());
         TimeUnit.SECONDS.sleep(10);
 //        pr.waitFor();
     }
 
     @Override
     public void allowBlackout() throws IOException, InterruptedException {
-        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("restrict_broadcasts.sh").getPath());
+        Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/restrict_broadcasts.sh").getPath());
         TimeUnit.SECONDS.sleep(10);
 //        pr.waitFor();
     }
