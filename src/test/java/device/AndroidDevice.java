@@ -124,7 +124,7 @@ public class AndroidDevice implements IDevice {
         System.out.println("1");
         File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         System.out.println("2");
-        FileUtils.copyFile(f, new File("/home/mitrixi/Local_C/IdeaProjects/untitled/src/test/resources/screenshot/testScr.png")); // Для сохранения/тестов
+        FileUtils.copyFile(f, new File("/home/mitrixi/Local_C/IdeaProjects/untitled/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
         System.out.println("3");
         CompareImg compareImg = new CompareImg();
         System.out.println("4");
