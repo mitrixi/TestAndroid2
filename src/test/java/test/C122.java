@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static service.TestUtils.*;
 
 public class C122 {
 
@@ -61,18 +62,7 @@ public class C122 {
 
         device.stepCancelStream();
 
-        boolean isStreamStart = false;
-        String strStream;
-        while (tsharkProcessStreamReader.ready()) {
-            strStream = tsharkProcessStreamReader.readLine();
-            System.out.println(strStream);
-            if (strStream.contains(START_STREAM_SERVER_MSG)) {
-                isStreamStart = true;
-                break;
-            }
-        }
-
-        tsharkProcessStreamReader.close();
+        boolean isStreamStart = isExecOutputContainsMsg(tsharkProcessStreamReader, START_STREAM_SERVER_MSG);
 
 //        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.getTsharkStartBlackout(CONFIG_FILE_URL));
 //        BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
@@ -102,25 +92,14 @@ public class C122 {
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
 
-        boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд после перезапуска приложения.
+        boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
 
-        boolean isStreamStartStep3 = false;
-        String strStreamStep3;
-        while (tsharkProcessStreamReaderStep3.ready()) {
-            strStreamStep3 = tsharkProcessStreamReaderStep3.readLine();
-            System.out.println(strStreamStep3);
-            if (strStreamStep3.contains(START_STREAM_SERVER_MSG)) {
-                isStreamStartStep3 = true;
-                break;
-            }
-        }
-
-        tsharkProcessStreamReaderStep3.close();
+        boolean isStreamStartStep3 = isExecOutputContainsMsg(tsharkProcessStreamReaderStep3, START_STREAM_SERVER_MSG);
 
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
         assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));

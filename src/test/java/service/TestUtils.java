@@ -63,4 +63,18 @@ public class TestUtils {
     public static int getSecFromBoStr(String s) {
         return Math.round(Float.parseFloat(s.split(" +")[1]));
     }
+
+    public static boolean isExecOutputContainsMsg(BufferedReader bufferedReader, String msg) throws IOException {
+        boolean isContains = false;
+        String strStream;
+        while (bufferedReader.ready()) {
+            strStream = bufferedReader.readLine();
+            System.out.println(strStream); // for test
+            if (strStream.contains(msg)) {
+                isContains = true;
+            }
+        }
+        bufferedReader.close();
+        return isContains;
+    }
 }

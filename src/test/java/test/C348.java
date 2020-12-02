@@ -19,8 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static service.TestUtils.getPidOfProcess;
-import static service.TestUtils.getSecFromBoStr;
+import static service.TestUtils.*;
 
 public class C348 {
 
@@ -77,18 +76,7 @@ public class C348 {
 
         device.stepCancelStream();
 
-        boolean isStreamStart = false;
-        String strStream;
-        while (tsharkProcessStreamReader.ready()) {
-            strStream = tsharkProcessStreamReader.readLine();
-            System.out.println(strStream); // tmp for test
-            if (strStream.contains(START_STREAM_SERVER_MSG)) {
-                isStreamStart = true;
-                break;
-            }
-        }
-
-        tsharkProcessStreamReader.close();
+        boolean isStreamStart = isExecOutputContainsMsg(tsharkProcessStreamReader, START_STREAM_SERVER_MSG);
 
         List<String> blackoutList = new ArrayList<>(); // используется для Step 2
         String boLine;
@@ -108,18 +96,20 @@ public class C348 {
 
         /******** Step 2 ********/
 
-        // 1) Должно быть еще 2 успешных запроса. (сам факт)
-        boolean existTwoSuccessBoReq = false;
-        // 2) Запросы отправляются каждые 15 секунд
-        boolean isPeriodicityBoReq = false;
-
         // tmp for test
         System.out.println("Блэкауты:");
         blackoutList.forEach(System.out::println);
         // tmp for test
 
+        // 1) Должно быть еще 2 успешных запроса. (сам факт)
+        boolean existTwoSuccessBoReq = false;
+        // 2) Запросы отправляются каждые 15 секунд
+        boolean isPeriodicityBoReq = false;
+
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
+
+            // Иногда пакет блэкаута "задваивается", поэтому сохранем в Set
             Set<Integer> secFromBoStrSet = new HashSet<>();
             blackoutList.forEach(boString -> {
                 int secFromBoStr = getSecFromBoStr(boString);
@@ -127,15 +117,17 @@ public class C348 {
                     secFromBoStrSet.add(secFromBoStr);
             });
 
-            // 1)
+            // 1) Анализ наличия еще 2 успешных запроса. (сам факт)
             if (secFromBoStrSet.size() > boSuccessCount)
                 existTwoSuccessBoReq = true;
 
-            // 2) Анализируем отправку только первых boSuccessCount запросов
+            // 2) Анализируем отправку только boSuccessCount запросов после первого, их периодичность должна быть равна secBoReqInterval +- secBoReqLag , относительно firstSecBoReq
             isPeriodicityBoReq = true;
             int indexBoString = 0;
-            for (String boString : blackoutList) {
-                if ((indexBoString > 0 && indexBoString <= boSuccessCount) && !(getSecFromBoStr(boString) >= (firstSecBoReq + secBoReqInterval * indexBoString - secBoReqLag) && getSecFromBoStr(boString) <= (firstSecBoReq + secBoReqInterval * indexBoString + secBoReqLag))) {
+            for (int secFromBo : secFromBoStrSet) {
+                if (indexBoString > boSuccessCount)
+                    break;
+                if ((indexBoString > 0 && indexBoString <= boSuccessCount) && !(secFromBo >= (firstSecBoReq + secBoReqInterval * indexBoString - secBoReqLag) && secFromBo <= (firstSecBoReq + secBoReqInterval * indexBoString + secBoReqLag))) {
                     isPeriodicityBoReq = false;
                 }
                 indexBoString++;
