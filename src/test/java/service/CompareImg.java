@@ -1,4 +1,4 @@
-package test;
+package service;
 
 import com.github.kilianB.hash.Hash;
 import com.github.kilianB.hashAlgorithms.AverageHash;

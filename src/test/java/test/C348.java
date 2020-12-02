@@ -7,7 +7,6 @@ import io.qameta.allure.Step;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static test.TestUtils.*;
-import static test.TestUtils.getSecFromBoStr;
+import static service.TestUtils.*;
+import static service.TestUtils.getSecFromBoStr;
 
 public class C348 {
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
@@ -102,7 +101,7 @@ public class C348 {
         // 1) Должно быть еще 2 успешных запроса. (сам факт)
         boolean existTwoSuccessBoReq = false;
         // 2) Запросы отправляются каждые 15 секунд
-        boolean isPeriodicityBoReq = true;
+        boolean isPeriodicityBoReq = false;
 
         // tmp for test
         System.out.println("Блэкауты:");
@@ -123,6 +122,7 @@ public class C348 {
                 existTwoSuccessBoReq = true;
 
             // 2) Анализируем отправку только первых boSuccessCount запросов
+            isPeriodicityBoReq = true;
             int indexBoString = 0;
             for (String boString : blackoutList) {
                 if ((indexBoString > 0 && indexBoString <= boSuccessCount) && !(getSecFromBoStr(boString) >= (firstSecBoReq + secBoReqInterval * indexBoString - secBoReqLag) && getSecFromBoStr(boString) <= (firstSecBoReq + secBoReqInterval * indexBoString + secBoReqLag))) {
