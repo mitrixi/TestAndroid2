@@ -109,7 +109,7 @@ public class C348 {
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
 
-            // Иногда пакет блэкаута "задваивается", поэтому сохранем в Set
+            // Иногда пакет блэкаута "задваивается", поэтому сохранем в Set округляя до целых секунд (иначе считаем, что это два различных пакета)
             Set<Integer> secFromBoStrSet = new HashSet<>();
             blackoutList.forEach(boString -> {
                 int secFromBoStr = getSecFromBoStr(boString);
@@ -121,7 +121,7 @@ public class C348 {
             if (secFromBoStrSet.size() > boSuccessCount)
                 existTwoSuccessBoReq = true;
 
-            // 2) Анализируем отправку только boSuccessCount запросов после первого, их периодичность должна быть равна secBoReqInterval +- secBoReqLag , относительно firstSecBoReq
+            // 2) Анализируем отправку только boSuccessCount запросов после первого, их периодичность должна быть равна (secBoReqInterval +- secBoReqLag) относительно firstSecBoReq
             isPeriodicityBoReq = true;
             int indexBoString = 0;
             for (int secFromBo : secFromBoStrSet) {
