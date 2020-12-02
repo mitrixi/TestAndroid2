@@ -7,4 +7,5 @@ gradlew
 gradlew.bat
 out/
 settings.gradle
+src/test/resources/screenshot/andrBoScr.jpg
 

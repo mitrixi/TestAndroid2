@@ -19,7 +19,7 @@ public class CompareImg {
 
         File img1 = new File(defaultScreenshotPath);
         System.out.println("7");
-        FileUtils.copyFile(img0, new File("/home/mitrixi/Pictures/andrBoScr.jpg")); // Для сохранения/тестов
+//        FileUtils.copyFile(img0, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
         System.out.println(8);
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
