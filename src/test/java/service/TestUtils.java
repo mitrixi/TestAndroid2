@@ -72,6 +72,7 @@ public class TestUtils {
             System.out.println(strStream); // for test
             if (strStream.contains(msg)) {
                 isContains = true;
+                break;
             }
         }
         bufferedReader.close();
