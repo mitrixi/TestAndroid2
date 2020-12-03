@@ -12,8 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class IosDevice implements IDevice {
 
-//    INSTANCE;
-
     public final static String IOS_DEVICE_IP = "10.254.7.106";
     public final static String SSH = "ssh -tt mmtr@10.254.7.106 ";
     public final static String IOS_TSHARK_START_SCRIPT_FILE = "tsharkScript/tshark_start_script.sh"; // вывод для консоли

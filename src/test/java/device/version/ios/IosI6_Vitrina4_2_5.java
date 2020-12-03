@@ -1,4 +1,4 @@
-package device.version;
+package device.version.ios;
 
 import device.IosDevice;
 import io.appium.java_client.MobileElement;
@@ -53,7 +53,7 @@ public class IosI6_Vitrina4_2_5 extends IosDevice {
 
     @Override
     public boolean seeBlackout() {
-        return false;
+        return false; // ToDo это будет isBoOnScreenShot
     }
 
     @Override

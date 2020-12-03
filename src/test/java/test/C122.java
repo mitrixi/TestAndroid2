@@ -1,8 +1,8 @@
 package test;
 
-import device.AndroidDevice;
 import device.IDevice;
-import device.version.IosI6_Vitrina4_2_5;
+import device.version.android.AndroidX_VitrinaX;
+import device.version.ios.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
@@ -29,7 +29,7 @@ public class C122 {
     @Step(value="C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidX_VitrinaX();
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/
