@@ -41,9 +41,11 @@ public class AndroidDevice implements IDevice {
         capabilities.setCapability("noReset", true);
         capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
         capabilities.setCapability("udid", "a6eaa0e2");
-//        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
-//        capabilities.setCapability("app", "/var/jenkins_home/workspace/TestAndroid/src/main/resources/vitrina-app-debug.apk");
-        capabilities.setCapability("app", "/tmp/dir-apk-file-android/vitrina-app-debug.apk");
+//        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");    //адрес на хосте
+//        capabilities.setCapability("app", "/var/jenkins_home/workspace/TestAndroid/src/main/resources/vitrina-app-debug.apk");    //адрес в контейнере дженкинса
+        capabilities.setCapability("appPackage", "ru.lyubimov.sdktestapp");
+        capabilities.setCapability("appActivity", "ru.lyubimov.sdktestapp.MainActivity");
+        capabilities.setCapability("app", "/tmp/dir-apk-file-android/vitrina-app-debug.apk");   //адрес в контейнере аппиума
 
         try {
 //            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
