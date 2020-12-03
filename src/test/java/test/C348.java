@@ -5,9 +5,7 @@ import device.IDevice;
 import device.IosDevice;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
-import service.ConfigUrl;
 
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,13 +17,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static service.ConfigUrl.getRestrictionsPeriodSec;
 import static service.TestUtils.*;
 
 public class C348 {
-
-    @Inject
-    ConfigUrl configUrl;
-
     // ToDo см С122
     public final static String CONFIG_FILE_URL = "http://10.254.0.131/";
 
@@ -46,7 +41,7 @@ public class C348 {
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         int boSuccessCount = 2;
-        int secBoReqInterval = configUrl.getRestrictionsPeriodSec(CONFIG_FILE_URL);
+        int secBoReqInterval = getRestrictionsPeriodSec(CONFIG_FILE_URL);
         int secBoReqLag = 2;
 
         /******** Step 1 ********/

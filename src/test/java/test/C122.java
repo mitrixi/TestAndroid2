@@ -5,9 +5,7 @@ import device.IDevice;
 import device.IosDevice;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
-import service.ConfigUrl;
 
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,13 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static service.ConfigUrl.*;
 import static service.TestUtils.*;
 
 public class C122 {
-
-    @Inject
-    ConfigUrl configUrl;
-
     // ToDo ссылка должна быть статичной, что-то вроде http://10.254.0.131/C122/Step1 и ещё одна http://10.254.0.131/C122/Step3
     //      методы device.restrictBlackout() и device.allowBlackout() НЕ НУЖНЫ
     //      ещё можно динамически генерировать конфиг передавая параметры, например http://10.254.0.131/C122/Step1?restrictionsPeriodSec=10
@@ -40,7 +35,7 @@ public class C122 {
 
         device.restrictBlackout();
 
-        boolean isBroadcastingAllowed = configUrl.isBroadcastingAllowed(CONFIG_FILE_URL);
+        boolean isBroadcastingAllowed = isBroadcastingAllowed(CONFIG_FILE_URL);
 
         assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", isBroadcastingAllowed, equalTo(true));
 
@@ -48,7 +43,7 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSec = configUrl.getRestrictionsPeriodSec(CONFIG_FILE_URL);
+        int restrictionsPeriodSec = getRestrictionsPeriodSec(CONFIG_FILE_URL);
 
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
@@ -83,7 +78,7 @@ public class C122 {
 
         device.stepToConfigUrl(CONFIG_FILE_URL);
 
-        int restrictionsPeriodSecStep3 = configUrl.getRestrictionsPeriodSec(CONFIG_FILE_URL);
+        int restrictionsPeriodSecStep3 = getRestrictionsPeriodSec(CONFIG_FILE_URL);
 
         Process tsharkProcessStreamStep3 = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
         BufferedReader tsharkProcessStreamReaderStep3 = new BufferedReader(new InputStreamReader(tsharkProcessStreamStep3.getInputStream()));
