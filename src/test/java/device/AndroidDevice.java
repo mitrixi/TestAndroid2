@@ -41,11 +41,12 @@ public class AndroidDevice implements IDevice {
         capabilities.setCapability("noReset", true);
         capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
         capabilities.setCapability("udid", "a6eaa0e2");
-        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
+//        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
+        capabilities.setCapability("app", "/var/jenkins_home/workspace/TestAndroid/src/main/resources/vitrina-app-debug.apk");
 
         try {
-            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
-//            driver = new AndroidDriver<>(new URL("http://172.17.0.3:4723/wd/hub"), capabilities);
+//            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+            driver = new AndroidDriver<>(new URL("http://172.17.0.3:4723/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
