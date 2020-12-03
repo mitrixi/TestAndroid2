@@ -9,10 +9,7 @@ import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -104,8 +101,8 @@ public class C348 {
         if (!blackoutList.isEmpty()) {
             int firstSecBoReq = getSecFromBoStr(blackoutList.get(0));
 
-            // Иногда пакет блэкаута "задваивается", поэтому сохранем в Set округляя до целых секунд (иначе считаем, что это два различных пакета)
-            Set<Integer> secFromBoStrSet = new HashSet<>();
+            // Иногда пакет блэкаута "задваивается", поэтому последовательно сохранем в LinkedHashSet округляя до целых секунд (иначе считаем, что это два различных пакета)
+            Set<Integer> secFromBoStrSet = new LinkedHashSet<>();
             blackoutList.forEach(boString -> {
                 int secFromBoStr = getSecFromBoStr(boString);
                 if ((secFromBoStr - firstSecBoReq) <= (boSuccessCount * secBoReqInterval + secBoReqLag))
