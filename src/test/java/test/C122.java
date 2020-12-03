@@ -2,7 +2,7 @@ package test;
 
 import device.AndroidDevice;
 import device.IDevice;
-import device.IosDevice;
+import device.version.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
@@ -13,8 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static service.ConfigUrl.*;
-import static service.TestUtils.*;
+import static service.ConfigUrl.getRestrictionsPeriodSec;
+import static service.ConfigUrl.isBroadcastingAllowed;
+import static service.TestUtils.isExecOutputContainsMsg;
 
 public class C122 {
     // ToDo ссылка должна быть статичной, что-то вроде http://10.254.0.131/C122/Step1 и ещё одна http://10.254.0.131/C122/Step3
@@ -28,7 +29,7 @@ public class C122 {
     @Step(value="C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidDevice();
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         /******** Step 1 ********/

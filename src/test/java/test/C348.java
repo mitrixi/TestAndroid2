@@ -2,14 +2,17 @@ package test;
 
 import device.AndroidDevice;
 import device.IDevice;
-import device.IosDevice;
+import device.version.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,7 +37,7 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
+        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidDevice();
 //        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
 
         int boSuccessCount = 2;

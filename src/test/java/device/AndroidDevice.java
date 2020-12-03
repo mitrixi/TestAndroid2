@@ -93,10 +93,10 @@ public class AndroidDevice implements IDevice {
         return this.getClass().getClassLoader().getResource(ANDR_TSHARK_STOP_SCRIPT_FILE).getPath();
     }
 
-    @Override
-    public String getDeviceIp() {
-        return ANDR_DEVICE_IP;
-    }
+//    @Override
+//    public String getDeviceIp() {
+//        return ANDR_DEVICE_IP;
+//    }
 
     @Override
     public void restrictBlackout() throws IOException, InterruptedException {
