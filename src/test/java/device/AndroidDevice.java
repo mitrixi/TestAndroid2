@@ -72,17 +72,6 @@ public abstract class AndroidDevice implements IDevice {
     }
 
     @Override
-    public void stepOk() {
-        MobileElement btnSubmit = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/submit");
-        btnSubmit.click();
-    }
-
-    @Override
-    public void stepCancelStream() {
-        // Закрывается сам через 1мин
-    }
-
-    @Override
     public String getTsharkStartFilePath() {
         return this.getClass().getClassLoader().getResource(ANDR_TSHARK_START_SCRIPT_FILE).getPath();
     }
@@ -114,18 +103,5 @@ public abstract class AndroidDevice implements IDevice {
         Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/restrict_broadcasts.sh").getPath());
 //        TimeUnit.SECONDS.sleep(10);
         pr.waitFor();
-    }
-
-    @Override
-    public boolean seeBlackout() {
-        return false; // ToDo это будет isBoOnScreenShot
-    }
-
-    @Override
-    public boolean isBoOnScreenShot() throws IOException {
-        File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//        FileUtils.copyFile(f, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
-        ImageCompare compareImg = new ImageCompare();
-        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }

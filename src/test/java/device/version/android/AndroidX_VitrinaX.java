@@ -18,7 +18,7 @@ public class AndroidX_VitrinaX extends AndroidDevice {
     public AndroidX_VitrinaX() {
         super();
     }
-//
+
 //    public static class SingletonHolder {
 //        private final static AndroidX_VitrinaX instance = new AndroidX_VitrinaX();
 //    }
