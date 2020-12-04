@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class AndroidX_VitrinaX extends AndroidDevice {
+public class A9_V4_3_1 extends AndroidDevice {
 
-    public AndroidX_VitrinaX() {
+    public A9_V4_3_1() {
         super();
     }
 
@@ -54,11 +54,6 @@ public class AndroidX_VitrinaX extends AndroidDevice {
     @Override
     public void stepCancelStream() {
         // Закрывается сам через 1мин
-    }
-
-    @Override
-    public boolean seeBlackout() {
-        return false; // ToDo это будет isBoOnScreenShot
     }
 
     @Override

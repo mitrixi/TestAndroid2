@@ -11,17 +11,17 @@ import java.io.IOException;
 
 import static service.ImageCompare.compareBo;
 
-public class IosI6_Vitrina4_2_5 extends IosDevice {
+public class I6_V4_2_5 extends IosDevice {
 
-    IosI6_Vitrina4_2_5() {
+    I6_V4_2_5() {
         super();
     }
 
     public static class SingletonHolder {
-        private final static IosI6_Vitrina4_2_5 instance = new IosI6_Vitrina4_2_5();
+        private final static I6_V4_2_5 instance = new I6_V4_2_5();
     }
 
-    public static IosI6_Vitrina4_2_5 getInstance() {
+    public static I6_V4_2_5 getInstance() {
         return SingletonHolder.instance;
     }
 
@@ -49,11 +49,6 @@ public class IosI6_Vitrina4_2_5 extends IosDevice {
     public void stepCancelStream() {
         MobileElement okBtn = (MobileElement) driver.findElementByXPath("//XCUIElementTypeButton[@name=\"Закрыть\"]");
         okBtn.click();
-    }
-
-    @Override
-    public boolean seeBlackout() {
-        return false; // ToDo это будет isBoOnScreenShot
     }
 
     @Override

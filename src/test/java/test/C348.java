@@ -1,8 +1,7 @@
 package test;
 
+import device.DeviceFactory;
 import device.IDevice;
-import device.version.android.AndroidX_VitrinaX;
-import device.version.ios.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
@@ -31,14 +30,13 @@ public class C348 {
 
 //    @BeforeClass
 //    public void preinstallations() throws IOException, InterruptedException {
-//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : new AndroidDevice();
+//        IDevice device = DeviceEnumFactory.getIDeviceByDeviceVersion(System.getenv("deviceType"));
 //    }
 
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidX_VitrinaX();
-//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("deviceType"));
 
         int boSuccessCount = 2;
         int secBoReqInterval = getRestrictionsPeriodSec(CONFIG_FILE_URL);

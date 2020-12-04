@@ -28,7 +28,6 @@ public class ImageCompare {
         }
 
         //Chaining multiple matcher for single image comparison
-
         SingleImageMatcher matcher = new SingleImageMatcher();
         matcher.addHashingAlgorithm(new AverageHash(64), .3);
         matcher.addHashingAlgorithm(new PerceptiveHash(32), .2);

@@ -8,7 +8,6 @@ public interface IDevice {
     void stepOk();
     void stepCancelStream();
 
-    boolean seeBlackout();
     boolean isBoOnScreenShot() throws IOException;
 
     String getTsharkStartFilePath();

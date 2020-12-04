@@ -1,8 +1,7 @@
 package test;
 
+import device.DeviceFactory;
 import device.IDevice;
-import device.version.android.AndroidX_VitrinaX;
-import device.version.ios.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
@@ -30,8 +29,7 @@ public class C122 {
     @Step(value="C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosI6_Vitrina4_2_5.getInstance() : new AndroidX_VitrinaX();
-//        IDevice device = "iPhone".equals(System.getenv("deviceType")) ? IosDevice.INSTANCE : AndroidDevice.INSTANCE;
+        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("deviceType"));
 
         /******** Step 1 ********/
 
@@ -52,11 +50,9 @@ public class C122 {
 
         device.stepOk();
 
-        boolean isBoOnScreenShotStep2 = device.seeBlackout();
-
         // Подождать <restrictions_period_sec>x4 секунд.
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
-        isBoOnScreenShotStep2 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
+        boolean isBoOnScreenShotStep2 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
 
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
