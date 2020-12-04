@@ -9,7 +9,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import service.CompareImg;
+import service.ImageCompare;
 
 import java.io.File;
 import java.io.IOException;
@@ -125,7 +125,7 @@ public abstract class AndroidDevice implements IDevice {
     public boolean isBoOnScreenShot() throws IOException {
         File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 //        FileUtils.copyFile(f, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
-        CompareImg compareImg = new CompareImg();
+        ImageCompare compareImg = new ImageCompare();
         return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }
