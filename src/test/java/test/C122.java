@@ -51,7 +51,12 @@ public class C122 {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 4);
+        boolean isBoOnScreenShotStep2 = device.seeBlackout();
+
+        // Подождать <restrictions_period_sec>x4 секунд.
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
+        isBoOnScreenShotStep2 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
 
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
@@ -60,18 +65,8 @@ public class C122 {
 
         boolean isStreamStart = isExecOutputContainsMsg(tsharkProcessStreamReader, START_STREAM_SERVER_MSG);
 
-//        Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.getTsharkStartBlackout(CONFIG_FILE_URL));
-//        BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
-//
-//        boolean existBlackout = false;
-//        if (tsharkProcessBlackoutReader.ready()) {
-//            existBlackout = true;
-//        }
-
-        boolean seeBlackout = device.seeBlackout();
-
         assertThat("C122_Step2: Видеопоток отсутствует", isStreamStart, equalTo(true));
-        assertThat("C122_Step2: Блэкаут виден", seeBlackout, equalTo(false));
+        assertThat("C122_Step2: Блэкаут виден", isBoOnScreenShotStep2, equalTo(false));
 
         /******** Step 3 ********/
 
@@ -88,7 +83,7 @@ public class C122 {
 
         TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
 
-        boolean isBoOnScreenShot = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
+        boolean isBoOnScreenShotStep3 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
 //        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
@@ -98,6 +93,6 @@ public class C122 {
         boolean isStreamStartStep3 = isExecOutputContainsMsg(tsharkProcessStreamReaderStep3, START_STREAM_SERVER_MSG);
 
         assertThat("C122_Step3: Видеопоток отсутствует", isStreamStartStep3, equalTo(true));
-        assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShot, equalTo(true));
+        assertThat("C122_Step3: Поверх видеотрансляции НЕ выводится заглушка блэкаута", isBoOnScreenShotStep3, equalTo(true));
     }
 }

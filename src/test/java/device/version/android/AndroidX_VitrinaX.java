@@ -15,16 +15,16 @@ import java.util.concurrent.TimeUnit;
 
 public class AndroidX_VitrinaX extends AndroidDevice {
 
-//    AndroidX_VitrinaX() {
-//        super();
-//    }
+    public AndroidX_VitrinaX() {
+        super();
+    }
 //
 //    public static class SingletonHolder {
 //        private final static AndroidX_VitrinaX instance = new AndroidX_VitrinaX();
 //    }
 //
 //    public static AndroidX_VitrinaX getInstance() {
-//        return AndroidX_VitrinaX.SingletonHolder.instance;
+//        return SingletonHolder.instance;
 //    }
 
     @Override
