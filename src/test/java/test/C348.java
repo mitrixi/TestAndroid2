@@ -78,7 +78,6 @@ public class C348 {
                 blackoutList.add(boLine.trim());
             }
         }
-
         tsharkProcessBlackoutReader.close();
 
         boolean existBlackout = !blackoutList.isEmpty();
