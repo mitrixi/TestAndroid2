@@ -13,7 +13,7 @@ public enum DeviceFactory {
     private String deviceVersion;
     private Supplier<IDevice> instantiator;
 
-    public IDevice getInstance() {
+    private IDevice getInstance() {
         return instantiator.get();
     }
 

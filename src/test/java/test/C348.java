@@ -36,7 +36,7 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("deviceType"));
+        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
 
         int boSuccessCount = 2;
         int secBoReqInterval = getRestrictionsPeriodSec(CONFIG_FILE_URL);

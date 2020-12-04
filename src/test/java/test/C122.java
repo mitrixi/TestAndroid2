@@ -3,7 +3,6 @@ package test;
 import device.DeviceFactory;
 import device.IDevice;
 import io.qameta.allure.Step;
-import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -29,7 +28,7 @@ public class C122 {
     @Step(value="C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("deviceType"));
+        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
 
         /******** Step 1 ********/
 
