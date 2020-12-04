@@ -11,17 +11,17 @@ import java.io.IOException;
 
 import static service.ImageCompare.compareBo;
 
-public class I6_V4_2_5 extends IosDevice {
+public class IosI6_Vitrina4_2_5 extends IosDevice {
 
-    I6_V4_2_5() {
+    IosI6_Vitrina4_2_5() {
         super();
     }
 
     public static class SingletonHolder {
-        private final static I6_V4_2_5 instance = new I6_V4_2_5();
+        private final static IosI6_Vitrina4_2_5 instance = new IosI6_Vitrina4_2_5();
     }
 
-    public static I6_V4_2_5 getInstance() {
+    public static IosI6_Vitrina4_2_5 getInstance() {
         return SingletonHolder.instance;
     }
 

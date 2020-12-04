@@ -13,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class A9_V4_3_1 extends AndroidDevice {
+public class Android9_Vitrina4_3_1 extends AndroidDevice {
 
-    public A9_V4_3_1() {
+    public Android9_Vitrina4_3_1() {
         super();
     }
 
