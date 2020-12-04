@@ -77,7 +77,7 @@ public class C122 {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2L);
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
 
         boolean isBoOnScreenShotStep3 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
