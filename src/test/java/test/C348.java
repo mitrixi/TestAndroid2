@@ -2,6 +2,8 @@ package test;
 
 import device.DeviceFactory;
 import device.IDevice;
+import device.version.android.Android9_Vitrina4_3_1;
+import device.version.ios.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
 import org.testng.annotations.Test;
 
@@ -78,6 +80,7 @@ public class C348 {
                 blackoutList.add(boLine.trim());
             }
         }
+
         tsharkProcessBlackoutReader.close();
 
         boolean existBlackout = !blackoutList.isEmpty();
