@@ -1,10 +1,17 @@
 package device;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import service.CompareImg;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,14 +38,48 @@ public abstract class AndroidDevice implements IDevice {
         capabilities.setCapability("noReset", true);
         capabilities.setCapability("deviceName", "Xiaomi Redmi 7");
         capabilities.setCapability("udid", "a6eaa0e2");
-        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");
+//        capabilities.setCapability("app", "/home/mitrixi/Local_C/IdeaProjects/untitled/src/main/resources/vitrina-app-debug.apk");    //адрес на хосте
+//        capabilities.setCapability("app", "/var/jenkins_home/workspace/TestAndroid/src/main/resources/vitrina-app-debug.apk");    //адрес в контейнере дженкинса
+        capabilities.setCapability("appPackage", "ru.lyubimov.sdktestapp");
+        capabilities.setCapability("appActivity", "ru.lyubimov.sdktestapp.MainActivity");
+        capabilities.setCapability("app", "/tmp/dir-apk-file-android/vitrina-app-debug.apk");   //адрес в контейнере аппиума
 
+        try {
+//            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+            driver = new AndroidDriver<>(new URL("http://172.17.0.3:4723/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void stepToConfigUrl(String configFileUrl) {
+
+        // КОСТЫЛЬ на время неполноценной версии приложения
+        try {
+            TimeUnit.SECONDS.sleep(60);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         try {
             driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
+        inputField.sendKeys(configFileUrl);
+    }
+
+    @Override
+    public void stepOk() {
+        MobileElement btnSubmit = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/submit");
+        btnSubmit.click();
+    }
+
+    @Override
+    public void stepCancelStream() {
+        // Закрывается сам через 1мин
     }
 
     @Override
@@ -64,14 +105,27 @@ public abstract class AndroidDevice implements IDevice {
     @Override
     public void restrictBlackout() throws IOException, InterruptedException {
         Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/allow_broadcasts.sh").getPath());
-        TimeUnit.SECONDS.sleep(10);
-//        pr.waitFor();
+//        TimeUnit.SECONDS.sleep(10);
+        pr.waitFor();
     }
 
     @Override
     public void allowBlackout() throws IOException, InterruptedException {
         Process pr = Runtime.getRuntime().exec(this.getClass().getClassLoader().getResource("blackoutOnOffScript/restrict_broadcasts.sh").getPath());
-        TimeUnit.SECONDS.sleep(10);
-//        pr.waitFor();
+//        TimeUnit.SECONDS.sleep(10);
+        pr.waitFor();
+    }
+
+    @Override
+    public boolean seeBlackout() {
+        return false; // ToDo это будет isBoOnScreenShot
+    }
+
+    @Override
+    public boolean isBoOnScreenShot() throws IOException {
+        File f = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//        FileUtils.copyFile(f, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
+        CompareImg compareImg = new CompareImg();
+        return compareImg.compareBo(f, this.getClass().getClassLoader().getResource(ANDR_BO_SCR_FILE).getPath());
     }
 }

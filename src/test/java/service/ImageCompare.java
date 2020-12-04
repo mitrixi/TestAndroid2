@@ -13,7 +13,7 @@ public class ImageCompare {
     public static boolean compareBo(File screenshot, String defaultScreenshotPath) throws IOException {
         File img0 = screenshot;
         File img1 = new File(defaultScreenshotPath);
-//        FileUtils.copyFile(img0, new File("/home/mitrixi/Pictures/testScr.png")); // Для сохранения/тестов
+//        FileUtils.copyFile(img0, new File("/var/jenkins_home/workspace/TestAndroid/src/test/resources/screenshot/andrBoScr.jpg")); // Для сохранения/тестов
 
         HashingAlgorithm hasher = new PerceptiveHash(32);
 
@@ -33,9 +33,6 @@ public class ImageCompare {
         matcher.addHashingAlgorithm(new AverageHash(64), .3);
         matcher.addHashingAlgorithm(new PerceptiveHash(32), .2);
 
-        if (matcher.checkSimilarity(img0, img1)) {
-            return true;
-        }
-        return false;
+        return matcher.checkSimilarity(img0, img1);
     }
 }

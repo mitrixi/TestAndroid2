@@ -4,6 +4,7 @@ import device.IDevice;
 import device.version.android.AndroidX_VitrinaX;
 import device.version.ios.IosI6_Vitrina4_2_5;
 import io.qameta.allure.Step;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -81,7 +82,7 @@ public class C122 {
 
         device.stepOk();
 
-        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2);
+        TimeUnit.SECONDS.sleep(restrictionsPeriodSecStep3 * 2L);
 
         boolean isBoOnScreenShotStep3 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
