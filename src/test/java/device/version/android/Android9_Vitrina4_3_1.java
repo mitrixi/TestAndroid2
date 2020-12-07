@@ -3,6 +3,7 @@ package device.version.android;
 import device.AndroidDevice;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import service.ImageCompare;
@@ -19,13 +20,13 @@ public class Android9_Vitrina4_3_1 extends AndroidDevice {
         super();
     }
 
-//    public static class SingletonHolder {
-//        private final static AndroidX_VitrinaX instance = new AndroidX_VitrinaX();
-//    }
-//
-//    public static AndroidX_VitrinaX getInstance() {
-//        return SingletonHolder.instance;
-//    }
+    public static class SingletonHolder {
+        private final static Android9_Vitrina4_3_1 instance = new Android9_Vitrina4_3_1();
+    }
+
+    public static Android9_Vitrina4_3_1 getInstance() {
+        return SingletonHolder.instance;
+    }
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
