@@ -38,8 +38,10 @@ public class Android9_Vitrina4_3_1 extends AndroidDevice {
             e.printStackTrace();
         }
         try {
-            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
-        } catch (MalformedURLException e) {
+//            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
+            driver = new AndroidDriver<>(new URL("http://172.19.0.2:4723/wd/hub"), capabilities);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         MobileElement inputField = (MobileElement) driver.findElementById("ru.lyubimov.sdktestapp:id/configUrl");
