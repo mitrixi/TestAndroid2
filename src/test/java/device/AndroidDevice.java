@@ -35,7 +35,7 @@ public abstract class AndroidDevice implements IDevice {
 //        capabilities.setCapability("app", "/var/jenkins_home/workspace/TestAndroid/src/main/resources/vitrina-app-debug.apk");    //адрес в контейнере дженкинса
         capabilities.setCapability("appPackage", "ru.lyubimov.sdktestapp");
         capabilities.setCapability("appActivity", "ru.lyubimov.sdktestapp.MainActivity");
-        capabilities.setCapability("app", "/tmp/dir-apk-file-android/vitrina-app-debug.apk");   //адрес в контейнере аппиума
+//        capabilities.setCapability("app", "/tmp/dir-apk-file-android/vitrina-app-debug.apk");   //адрес в контейнере аппиума
 
         try {
 //            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
