@@ -39,8 +39,8 @@ public abstract class AndroidDevice implements IDevice {
 
         try {
 //            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
-            driver = new AndroidDriver<>(new URL("http://172.17.0.3:4723/wd/hub"), capabilities);
-        } catch (MalformedURLException e) {
+            driver = new AndroidDriver<>(new URL("http://172.19.0.2:4723/wd/hub"), capabilities);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
