@@ -25,7 +25,7 @@ public class C122 {
     public final static String START_STREAM_SERVER_MSG = "Server Hello";
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
-    @Step(value="C122")
+    @Step(value = "C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
         IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
@@ -36,7 +36,8 @@ public class C122 {
 
         boolean isBroadcastingAllowed = isBroadcastingAllowed(CONFIG_FILE_URL);
 
-        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию", isBroadcastingAllowed, equalTo(true));
+        assertThat("C122_Step1 По ссылке в параметре конфига restrictions_api_url открывается jsonConfigFile-файл НЕ соответствующий описанию",
+                isBroadcastingAllowed, equalTo(true));
 
         /******** Step 2 ********/
 
