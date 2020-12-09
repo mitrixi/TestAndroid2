@@ -78,4 +78,8 @@ public class TestUtils {
         bufferedReader.close();
         return isContains;
     }
+
+    public static String getSwipeDirection(int displayWidth, int mobileLocationY) {
+        return displayWidth / 2 - mobileLocationY > 0 ? "down" : "up";
+    }
 }

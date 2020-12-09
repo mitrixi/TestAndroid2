@@ -1,12 +1,10 @@
 package device;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +20,7 @@ public abstract class AndroidDevice implements IDevice {
 
     public final static String ANDR_BO_SCR_FILE = "screenshot/andrBoScr.jpg"; // вывод для консоли
 
-    public AppiumDriver<WebElement> driver;
+    public AndroidDriver<WebElement> driver;
     public DesiredCapabilities capabilities;
 
     public AndroidDevice() {

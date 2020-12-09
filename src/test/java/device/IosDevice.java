@@ -1,12 +1,10 @@
 package device;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +20,7 @@ public abstract class IosDevice implements IDevice {
     public final static String IOS_BO_SCR_FILE = "screenshot/iOsBoScr.jpg"; // вывод для консоли
     //    public final static String IOS_TSHARK_KILL_SCRIPT = "killall tshark";
 
-    public AppiumDriver<WebElement> driver;
+    public IOSDriver<WebElement> driver;
 
     public IosDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -31,6 +29,7 @@ public abstract class IosDevice implements IDevice {
         capabilities.setCapability("udid", "auto");
         capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
         capabilities.setCapability("bundleId", "com.apple.TestFlight");
+//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
         capabilities.setCapability("xcodeSigningId", "iPhone Developer");
         capabilities.setCapability("automationName", "XCUITest");
         capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
@@ -39,7 +38,7 @@ public abstract class IosDevice implements IDevice {
 
         try {
             driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);

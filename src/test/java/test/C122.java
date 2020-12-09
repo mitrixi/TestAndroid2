@@ -14,6 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static service.ConfigUrl.getRestrictionsPeriodSec;
 import static service.ConfigUrl.isBroadcastingAllowed;
+import static service.TestUtils.getPidOfProcess;
 import static service.TestUtils.isExecOutputContainsMsg;
 
 public class C122 {
@@ -29,6 +30,7 @@ public class C122 {
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
         IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
+//        IDevice device = DeviceFactory.getIDeviceByDeviceVersion("I6_V4.2.5");
 
         /******** Step 1 ********/
 
@@ -55,7 +57,7 @@ public class C122 {
         boolean isBoOnScreenShotStep2 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
 
-//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
@@ -82,7 +84,7 @@ public class C122 {
 
         boolean isBoOnScreenShotStep3 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
-//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
+        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
         Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();

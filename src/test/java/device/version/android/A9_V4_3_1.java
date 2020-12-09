@@ -3,30 +3,28 @@ package device.version.android;
 import device.AndroidDevice;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import service.ImageCompare;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class Android9_Vitrina4_3_1 extends AndroidDevice {
+public class A9_V4_3_1 extends AndroidDevice {
 
-    public Android9_Vitrina4_3_1() {
+    public A9_V4_3_1() {
         super();
     }
 
-    public static class SingletonHolder {
-        private final static Android9_Vitrina4_3_1 instance = new Android9_Vitrina4_3_1();
-    }
-
-    public static Android9_Vitrina4_3_1 getInstance() {
-        return SingletonHolder.instance;
-    }
+//    public static class SingletonHolder {
+//        private final static AndroidX_VitrinaX instance = new AndroidX_VitrinaX();
+//    }
+//
+//    public static AndroidX_VitrinaX getInstance() {
+//        return SingletonHolder.instance;
+//    }
 
     @Override
     public void stepToConfigUrl(String configFileUrl) {
@@ -38,9 +36,7 @@ public class Android9_Vitrina4_3_1 extends AndroidDevice {
             e.printStackTrace();
         }
         try {
-//            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
-            driver = new AndroidDriver<>(new URL("http://172.19.0.2:4723/wd/hub"), capabilities);
-
+            driver = new AndroidDriver<>(new URL("http://10.254.0.131:4723/wd/hub"), capabilities);
         } catch (Exception e) {
             e.printStackTrace();
         }
