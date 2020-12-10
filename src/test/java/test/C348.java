@@ -37,6 +37,18 @@ public class C348 {
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
 
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        Process tsharkProcessStream0 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
+        /**/
+        BufferedReader tsharkProcessStreamReader0 = new BufferedReader(new InputStreamReader(tsharkProcessStream0.getInputStream()));
+
+        while (tsharkProcessStreamReader0.ready()) {
+            String strStream = tsharkProcessStreamReader0.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
+
 
         Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
         /**/
@@ -67,6 +79,8 @@ public class C348 {
             System.out.println(strStream); // for test
         }
         /**/
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 
 
