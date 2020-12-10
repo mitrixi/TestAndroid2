@@ -36,6 +36,40 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
+
+
+        Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
+        /**/
+        BufferedReader tsharkProcessStreamReader1 = new BufferedReader(new InputStreamReader(tsharkProcessStream1.getErrorStream()));
+
+        while (tsharkProcessStreamReader1.ready()) {
+            String strStream = tsharkProcessStreamReader1.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
+
+        Process tsharkProcessStream2 = Runtime.getRuntime().exec("ssh -t mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
+        /**/
+        BufferedReader tsharkProcessStreamReader2 = new BufferedReader(new InputStreamReader(tsharkProcessStream2.getErrorStream()));
+
+        while (tsharkProcessStreamReader2.ready()) {
+            String strStream = tsharkProcessStreamReader2.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
+
+        Process tsharkProcessStream3 = Runtime.getRuntime().exec("ssh mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
+        /**/
+        BufferedReader tsharkProcessStreamReader3 = new BufferedReader(new InputStreamReader(tsharkProcessStream3.getErrorStream()));
+
+        while (tsharkProcessStreamReader3.ready()) {
+            String strStream = tsharkProcessStreamReader3.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
+
+
+
         IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
 
         int boSuccessCount = 2;
