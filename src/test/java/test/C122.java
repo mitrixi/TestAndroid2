@@ -48,7 +48,14 @@ public class C122 {
         int restrictionsPeriodSec = getRestrictionsPeriodSec(CONFIG_FILE_URL);
 
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
-        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
+//        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
+
+        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getErrorStream()));
+
+        while (tsharkProcessStreamReader.ready()) {
+            String strStream = tsharkProcessStreamReader.readLine();
+            System.out.println(strStream); // for test
+        }
 
         device.stepOk();
 
