@@ -46,7 +46,7 @@ public abstract class IosDevice implements IDevice {
 
     @Override
     public String getTsharkStartFilePath() {
-        return "ssh -t mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'";
+        return "ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src == 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'";
 //        return this.getClass().getClassLoader().getResource(IOS_TSHARK_START_SCRIPT_FILE).getPath();
     }
 
