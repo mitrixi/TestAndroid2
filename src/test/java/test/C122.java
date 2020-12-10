@@ -29,8 +29,8 @@ public class C122 {
     @Step(value = "C122")
     @Test(alwaysRun = true)
     public void c122() throws IOException, InterruptedException {
-        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
-//        IDevice device = DeviceFactory.getIDeviceByDeviceVersion("I6_V4.2.5");
+//        IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
+        IDevice device = DeviceFactory.getIDeviceByDeviceVersion("I6_V4.2.5");
 
         /******** Step 1 ********/
 

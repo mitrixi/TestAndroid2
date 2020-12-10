@@ -1,0 +1,17 @@
+{
+  "appium": {
+    "capabilities": {
+      "deviceName": "iPhone (MMTR)",
+      "xcodeOrgId": "L8RRJQRVFV",
+      "bundleId": "com.apple.TestFlight",
+      "agentPath": "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj",
+      "bootstrapPath": "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent",
+      "useNewWDA": true
+    },
+    "driver": {
+      "url": "http://10.254.7.106:4723/wd/hub",
+      "implicitlyWait": 5
+    }
+  },
+  "deviceIp": "10.254.7.106"
+}
