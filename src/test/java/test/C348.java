@@ -50,7 +50,16 @@ public class C348 {
 
         // Запускаем tshark, читаем из консоли Stream
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
-        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
+//        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
+
+        /**/
+        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getErrorStream()));
+
+        while (tsharkProcessStreamReader.ready()) {
+            String strStream = tsharkProcessStreamReader.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
 
         Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.getTsharkStartBlackout(CONFIG_FILE_URL));
         BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
