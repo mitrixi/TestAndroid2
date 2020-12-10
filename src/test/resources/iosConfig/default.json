@@ -13,5 +13,8 @@
       "implicitlyWait": 5
     }
   },
-  "deviceIp": "10.254.7.106"
+  "device": {
+    "ip": "10.254.7.106",
+    "user": "mmtr"
+  }
 }
