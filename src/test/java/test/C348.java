@@ -53,6 +53,8 @@ public class C348 {
         /**/
         BufferedReader tsharkProcessStreamReader0 = new BufferedReader(new InputStreamReader(tsharkProcessStream0.getInputStream()));
 
+        TimeUnit.SECONDS.sleep(2);
+
         while (tsharkProcessStreamReader0.ready()) {
             String strStream = tsharkProcessStreamReader0.readLine();
             System.out.println(strStream); // for test
@@ -64,6 +66,8 @@ public class C348 {
         /**/
         BufferedReader tsharkProcessStreamReader1 = new BufferedReader(new InputStreamReader(tsharkProcessStream1.getErrorStream()));
 
+        TimeUnit.SECONDS.sleep(2);
+
         while (tsharkProcessStreamReader1.ready()) {
             String strStream = tsharkProcessStreamReader1.readLine();
             System.out.println(strStream); // for test
@@ -74,6 +78,8 @@ public class C348 {
         /**/
         BufferedReader tsharkProcessStreamReader2 = new BufferedReader(new InputStreamReader(tsharkProcessStream2.getErrorStream()));
 
+        TimeUnit.SECONDS.sleep(2);
+
         while (tsharkProcessStreamReader2.ready()) {
             String strStream = tsharkProcessStreamReader2.readLine();
             System.out.println(strStream); // for test
@@ -83,6 +89,8 @@ public class C348 {
         Process tsharkProcessStream3 = Runtime.getRuntime().exec("ssh mmtr@10.254.7.106 '/usr/local/bin/tshark'");
         /**/
         BufferedReader tsharkProcessStreamReader3 = new BufferedReader(new InputStreamReader(tsharkProcessStream3.getErrorStream()));
+
+        TimeUnit.SECONDS.sleep(2);
 
         while (tsharkProcessStreamReader3.ready()) {
             String strStream = tsharkProcessStreamReader3.readLine();
