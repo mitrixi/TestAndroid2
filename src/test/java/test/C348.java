@@ -62,6 +62,19 @@ public class C348 {
         /**/
 
 
+        Process tsharkProcessStream000 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"ip.dst == 10.254.7.106\"'");
+        /**/
+        BufferedReader tsharkProcessStreamReader000 = new BufferedReader(new InputStreamReader(tsharkProcessStream000.getInputStream()));
+
+        TimeUnit.SECONDS.sleep(2);
+
+        while (tsharkProcessStreamReader000.ready()) {
+            String strStream = tsharkProcessStreamReader000.readLine();
+            System.out.println(strStream); // for test
+        }
+        /**/
+
+
         Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark'");
         /**/
         BufferedReader tsharkProcessStreamReader1 = new BufferedReader(new InputStreamReader(tsharkProcessStream1.getErrorStream()));
