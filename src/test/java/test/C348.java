@@ -75,7 +75,7 @@ public class C348 {
         /**/
 
 
-        Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark'");
+        Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark-Y \"ip.dst == 10.254.7.106\"'");
         /**/
         BufferedReader tsharkProcessStreamReader1 = new BufferedReader(new InputStreamReader(tsharkProcessStream1.getErrorStream()));
 
@@ -87,7 +87,7 @@ public class C348 {
         }
         /**/
 
-        Process tsharkProcessStream2 = Runtime.getRuntime().exec("ssh -t mmtr@10.254.7.106 '/usr/local/bin/tshark'");
+        Process tsharkProcessStream2 = Runtime.getRuntime().exec("ssh -t mmtr@10.254.7.106 '/usr/local/bin/tshark-Y \"ip.dst == 10.254.7.106\"'");
         /**/
         BufferedReader tsharkProcessStreamReader2 = new BufferedReader(new InputStreamReader(tsharkProcessStream2.getErrorStream()));
 
@@ -99,7 +99,7 @@ public class C348 {
         }
         /**/
 
-        Process tsharkProcessStream3 = Runtime.getRuntime().exec("ssh mmtr@10.254.7.106 '/usr/local/bin/tshark'");
+        Process tsharkProcessStream3 = Runtime.getRuntime().exec("ssh mmtr@10.254.7.106 '/usr/local/bin/tshark-Y \"ip.dst == 10.254.7.106\"'");
         /**/
         BufferedReader tsharkProcessStreamReader3 = new BufferedReader(new InputStreamReader(tsharkProcessStream3.getErrorStream()));
 
