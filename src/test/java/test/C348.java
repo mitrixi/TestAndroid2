@@ -36,85 +36,6 @@ public class C348 {
     @Step(value = "C348")
     @Test(alwaysRun = true)
     public void c348() throws IOException, InterruptedException {
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-//        Process tsharkProcessStream00 = Runtime.getRuntime().exec("/usr/local/bin/tshark");
-//        /**/
-//        BufferedReader tsharkProcessStreamReader00 = new BufferedReader(new InputStreamReader(tsharkProcessStream00.getInputStream()));
-//
-//        while (tsharkProcessStreamReader00.ready()) {
-//            String strStream = tsharkProcessStreamReader00.readLine();
-//            System.out.println(strStream); // for test
-//        }
-//        /**/
-
-        Process tsharkProcessStream0 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"(ip.src != 92.223.99.99 || ip.src == 178.176.158.68 || ip.src == 178.176.158.69 || ip.src == 195.161.167.68 || ip.src == 195.161.167.69) && ip.dst == 10.254.7.106\"'");
-        /**/
-        BufferedReader tsharkProcessStreamReader0 = new BufferedReader(new InputStreamReader(tsharkProcessStream0.getInputStream()));
-
-        TimeUnit.SECONDS.sleep(2);
-
-        while (tsharkProcessStreamReader0.ready()) {
-            String strStream = tsharkProcessStreamReader0.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
-
-
-        Process tsharkProcessStream000 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"ip.dst == 10.254.7.106\"'");
-        /**/
-        BufferedReader tsharkProcessStreamReader000 = new BufferedReader(new InputStreamReader(tsharkProcessStream000.getInputStream()));
-
-        TimeUnit.SECONDS.sleep(2);
-
-        while (tsharkProcessStreamReader000.ready()) {
-            String strStream = tsharkProcessStreamReader000.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
-
-
-        Process tsharkProcessStream1 = Runtime.getRuntime().exec("ssh -tt mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"ip.dst == 10.254.7.106\"'");
-        /**/
-        BufferedReader tsharkProcessStreamReader1 = new BufferedReader(new InputStreamReader(tsharkProcessStream1.getErrorStream()));
-
-        TimeUnit.SECONDS.sleep(2);
-
-        while (tsharkProcessStreamReader1.ready()) {
-            String strStream = tsharkProcessStreamReader1.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
-
-        Process tsharkProcessStream2 = Runtime.getRuntime().exec("ssh -t mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"ip.dst == 10.254.7.106\"'");
-        /**/
-        BufferedReader tsharkProcessStreamReader2 = new BufferedReader(new InputStreamReader(tsharkProcessStream2.getErrorStream()));
-
-        TimeUnit.SECONDS.sleep(2);
-
-        while (tsharkProcessStreamReader2.ready()) {
-            String strStream = tsharkProcessStreamReader2.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
-
-        Process tsharkProcessStream3 = Runtime.getRuntime().exec("ssh mmtr@10.254.7.106 '/usr/local/bin/tshark -Y \"ip.dst == 10.254.7.106\"'");
-        /**/
-        BufferedReader tsharkProcessStreamReader3 = new BufferedReader(new InputStreamReader(tsharkProcessStream3.getErrorStream()));
-
-        TimeUnit.SECONDS.sleep(2);
-
-        while (tsharkProcessStreamReader3.ready()) {
-            String strStream = tsharkProcessStreamReader3.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-
-
         IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
 
         int boSuccessCount = 2;
@@ -129,16 +50,7 @@ public class C348 {
 
         // Запускаем tshark, читаем из консоли Stream
         Process tsharkProcessStream = Runtime.getRuntime().exec(device.getTsharkStartFilePath());
-//        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
-
-        /**/
-        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getErrorStream()));
-
-        while (tsharkProcessStreamReader.ready()) {
-            String strStream = tsharkProcessStreamReader.readLine();
-            System.out.println(strStream); // for test
-        }
-        /**/
+        BufferedReader tsharkProcessStreamReader = new BufferedReader(new InputStreamReader(tsharkProcessStream.getInputStream()));
 
         Process tsharkProcessBlackout = Runtime.getRuntime().exec(device.getTsharkStartBlackout(CONFIG_FILE_URL));
         BufferedReader tsharkProcessBlackoutReader = new BufferedReader(new InputStreamReader(tsharkProcessBlackout.getInputStream()));
