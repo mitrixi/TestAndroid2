@@ -27,7 +27,7 @@ public class C122 {
     public final static String START_STREAM_CLIENT_MSG = "Client Hello";
 
     @Step(value = "C122")
-    @Test(alwaysRun = true, enabled = false)
+    @Test(alwaysRun = true, enabled = true)
     public void c122() throws IOException, InterruptedException {
         IDevice device = DeviceFactory.getIDeviceByDeviceVersion(System.getenv("DeviceVersion"));
 //        IDevice device = DeviceFactory.getIDeviceByDeviceVersion("I6_V4.2.5");
