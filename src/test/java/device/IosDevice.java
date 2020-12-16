@@ -32,8 +32,8 @@ public abstract class IosDevice implements IDevice {
         capabilities.setCapability("automationName", "XCUITest");
         capabilities.setCapability("udid", "auto");
 
-        // ToDo Возможно будет разумно, если DeviceConfigPath будет ссылаться на url где лежит json config, необходимо реализовать сервис который будет возвращать и TvConfig и DeviceConfig
-        //      Возможно будет разумно, если DeviceConfigPath будет передана через конструктор
+        // ToDo 1) DeviceConfigPath будет ссылаться на url где лежит DeviceConfig json, необходимо реализовать сервис который будет возвращать и TvConfig и DeviceConfig
+        //      2) Передавать DeviceConfigPath через конструктор?
         String deviceConfigPath = System.getenv("DeviceConfigPath");
         if (!deviceConfigPath.isEmpty()) {
             DeviceConfig deviceConfig = getPojoFromJsonFile(DeviceConfig.class, deviceConfigPath);
