@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static service.ConfigUrl.getRestrictionsPeriodSec;
 import static service.TestUtils.*;
+import static service.TvConfig.*;
 
 public class C348 {
     // ToDo см С122

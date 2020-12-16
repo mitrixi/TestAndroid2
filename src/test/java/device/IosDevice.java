@@ -1,12 +1,15 @@
 package device;
 
 import io.appium.java_client.ios.IOSDriver;
+import model.deviceConfig.DeviceConfig;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
+import static service.TestUtils.getPojoFromJsonFile;
 
 public abstract class IosDevice implements IDevice {
 
@@ -25,23 +28,47 @@ public abstract class IosDevice implements IDevice {
     public IosDevice() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("deviceName", "iPhone (MMTR)");
-        capabilities.setCapability("udid", "auto");
-        capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
-        capabilities.setCapability("bundleId", "com.apple.TestFlight");
-//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
         capabilities.setCapability("xcodeSigningId", "iPhone Developer");
         capabilities.setCapability("automationName", "XCUITest");
-        capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
-        capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
-        capabilities.setCapability("useNewWDA", true);
+        capabilities.setCapability("udid", "auto");
 
-        try {
-            driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
-        } catch (Exception e) {
-            e.printStackTrace();
+        // ToDo Возможно будет разумно, если DeviceConfigPath будет ссылаться на url где лежит json config, необходимо реализовать сервис который будет возвращать и TvConfig и DeviceConfig
+        //      Возможно будет разумно, если DeviceConfigPath будет передана через конструктор
+        String deviceConfigPath = System.getenv("DeviceConfigPath");
+        if (!deviceConfigPath.isEmpty()) {
+            DeviceConfig deviceConfig = getPojoFromJsonFile(DeviceConfig.class, deviceConfigPath);
+            capabilities.setCapability("deviceName", deviceConfig.getAppium().getCapabilities().getDeviceName());
+            capabilities.setCapability("xcodeOrgId", deviceConfig.getAppium().getCapabilities().getXcodeOrgId());
+            capabilities.setCapability("bundleId", deviceConfig.getAppium().getCapabilities().getBundleId());
+//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
+            capabilities.setCapability("agentPath", deviceConfig.getAppium().getCapabilities().getAgentPath());
+            capabilities.setCapability("bootstrapPath", deviceConfig.getAppium().getCapabilities().getBootstrapPath());
+            capabilities.setCapability("useNewWDA", deviceConfig.getAppium().getCapabilities().getUseNewWDA());
+
+            try {
+                driver = new IOSDriver<>(new URL(deviceConfig.getAppium().getDriver().getUrl()), capabilities);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            driver.manage().timeouts().implicitlyWait(deviceConfig.getAppium().getDriver().getImplicitlyWait(), TimeUnit.SECONDS);
         }
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        // ToDo дефолтное заполнение, в последствии убрать...
+        else {
+            capabilities.setCapability("deviceName", "iPhone (MMTR)");
+            capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
+            capabilities.setCapability("bundleId", "com.apple.TestFlight");
+//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
+            capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
+            capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
+            capabilities.setCapability("useNewWDA", true);
+
+            try {
+                driver = new IOSDriver<>(new URL("http://10.254.7.106:4723/wd/hub"), capabilities);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        }
     }
 
     @Override

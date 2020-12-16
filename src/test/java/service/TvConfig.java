@@ -8,7 +8,7 @@ import java.net.URL;
 
 import static service.TestUtils.readJsonFromUrl;
 
-public class ConfigUrl {
+public class TvConfig {
     public static String getUrlBlackout(String configUrl) throws IOException {
         JSONObject jsonConfigFile = readJsonFromUrl(configUrl);
         return jsonConfigFile.getJSONObject("result").getJSONObject("sdk_config").getString("restrictions_api_url");

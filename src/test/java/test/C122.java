@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static service.ConfigUrl.getRestrictionsPeriodSec;
-import static service.ConfigUrl.isBroadcastingAllowed;
+import static service.TvConfig.getRestrictionsPeriodSec;
+import static service.TvConfig.isBroadcastingAllowed;
 import static service.TestUtils.getPidOfProcess;
 import static service.TestUtils.isExecOutputContainsMsg;
 
