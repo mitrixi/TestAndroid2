@@ -11,6 +11,9 @@
     "driver": {
       "url": "http://10.254.7.106:4723/wd/hub",
       "implicitlyWait": 5
+    },
+    "sniffer": {
+      "ip": "10.254.7.106"
     }
   },
   "device": {

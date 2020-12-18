@@ -5,6 +5,8 @@ public class Appium {
 
     private Driver driver;
 
+    private Sniffer sniffer;
+
     public void setCapabilities(Capabilities capabilities) {
         this.capabilities = capabilities;
     }
@@ -19,5 +21,13 @@ public class Appium {
 
     public Driver getDriver() {
         return this.driver;
+    }
+
+    public Sniffer getSniffer() {
+        return sniffer;
+    }
+
+    public void setSniffer(Sniffer sniffer) {
+        this.sniffer = sniffer;
     }
 }

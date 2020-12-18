@@ -2,6 +2,7 @@ package device;
 
 import io.appium.java_client.ios.IOSDriver;
 import model.deviceConfig.DeviceConfig;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -35,12 +36,12 @@ public abstract class IosDevice implements IDevice {
         // ToDo 1) DeviceConfigPath будет ссылаться на url где лежит DeviceConfig json, необходимо реализовать сервис который будет возвращать и TvConfig и DeviceConfig
         //      2) Передавать DeviceConfigPath через конструктор?
         String deviceConfigPath = System.getenv("DeviceConfigPath");
-        if (!deviceConfigPath.isEmpty()) {
+        if (!StringUtils.isEmpty(deviceConfigPath)) {
             DeviceConfig deviceConfig = getPojoFromJsonFile(DeviceConfig.class, deviceConfigPath);
             capabilities.setCapability("deviceName", deviceConfig.getAppium().getCapabilities().getDeviceName());
             capabilities.setCapability("xcodeOrgId", deviceConfig.getAppium().getCapabilities().getXcodeOrgId());
             capabilities.setCapability("bundleId", deviceConfig.getAppium().getCapabilities().getBundleId());
-//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
+//            capabilities.setCapability("bundleId", "com.google.ios.youtube");
             capabilities.setCapability("agentPath", deviceConfig.getAppium().getCapabilities().getAgentPath());
             capabilities.setCapability("bootstrapPath", deviceConfig.getAppium().getCapabilities().getBootstrapPath());
             capabilities.setCapability("useNewWDA", deviceConfig.getAppium().getCapabilities().getUseNewWDA());
@@ -57,7 +58,7 @@ public abstract class IosDevice implements IDevice {
             capabilities.setCapability("deviceName", "iPhone (MMTR)");
             capabilities.setCapability("xcodeOrgId", "L8RRJQRVFV");
             capabilities.setCapability("bundleId", "com.apple.TestFlight");
-//        capabilities.setCapability("bundleId", "com.google.ios.youtube");
+//            capabilities.setCapability("bundleId", "com.google.ios.youtube");
             capabilities.setCapability("agentPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj");
             capabilities.setCapability("bootstrapPath", "/Users/mmtr/.npm-packages/lib/node_modules/appium/node_modules/appium-webdriveragent");
             capabilities.setCapability("useNewWDA", true);
