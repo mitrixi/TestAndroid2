@@ -59,12 +59,14 @@ public class C348 {
 
         TimeUnit.SECONDS.sleep(SLEEP_TIME_STREAM);
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+        stopProcess(tsharkProcessStream);
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
 
         TimeUnit.SECONDS.sleep(secBoReqInterval * 2 + secBoReqLag);
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
-        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+        stopProcess(tsharkProcessBlackout);
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessBlackout));
+//        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
 

@@ -70,6 +70,22 @@ public class TestUtils {
         return stringBuilder.toString();
     }
 
+    public static void stopProcess(Process p) throws IOException {
+        long pid = -1;
+
+        try {
+            if (p.getClass().getName().equals("java.lang.UNIXProcess")) {
+                Field f = p.getClass().getDeclaredField("pid");
+                f.setAccessible(true);
+                pid = f.getLong(p);
+                f.setAccessible(false);
+            }
+        } catch (Exception e) {
+            pid = -1;
+        }
+        Runtime.getRuntime().exec("kill -9 " + pid);
+    }
+
     public static synchronized long getPidOfProcess(Process p) {
         long pid = -1;
 

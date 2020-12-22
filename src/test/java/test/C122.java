@@ -12,10 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static service.TestUtils.*;
 import static service.TvConfig.getRestrictionsPeriodSec;
 import static service.TvConfig.isBroadcastingAllowed;
-import static service.TestUtils.getPidOfProcess;
-import static service.TestUtils.isExecOutputContainsMsg;
 
 public class C122 {
     // ToDo ссылка должна быть статичной, что-то вроде http://10.254.0.131/C122/Step1 и ещё одна http://10.254.0.131/C122/Step3
@@ -57,8 +56,9 @@ public class C122 {
         boolean isBoOnScreenShotStep2 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
         TimeUnit.SECONDS.sleep(restrictionsPeriodSec * 2);
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
-        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+        stopProcess(tsharkProcessStream);
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStream));
+//        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
 
@@ -84,8 +84,9 @@ public class C122 {
 
         boolean isBoOnScreenShotStep3 = device.isBoOnScreenShot(); // Блэкаут в приложении должен запуститься не позднее чем через <restrictions_period_sec>x2 секунд (после перезапуска приложения)
 
-        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
-        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
+        stopProcess(tsharkProcessStreamStep3);
+//        Runtime.getRuntime().exec("kill -9 " + getPidOfProcess(tsharkProcessStreamStep3));
+//        Runtime.getRuntime().exec(device.getTsharkStopFilePath());
 
         device.stepCancelStream();
 
