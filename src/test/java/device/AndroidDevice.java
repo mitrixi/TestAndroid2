@@ -14,9 +14,9 @@ public abstract class AndroidDevice implements IDevice {
     public final static String ANDR_TSHARK_BLACKOUT_SNIFFING = "tsharkScript/andr_tshark_blackout_sniffing.sh";
     public final static String ANDR_TSHARK_STOP_SCRIPT_FILE = "tsharkScript/andr_tshark_stop_script.sh";
     //    public final static String ANDR_TSHARK_KILL_SCRIPT = "sudo killall tshark";
-    public final static String ANDR_DEVICE_IP = "10.10.0.102";
-    public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
-    public final static String ANDR_BLACKOUTS_IP = "151.236.95.210";
+//    public final static String ANDR_DEVICE_IP = "10.10.0.102";
+//    public final static String ANDR_VITRINA_APP_APK_FILE = "vitrina-app-debug.apk";
+//    public final static String ANDR_BLACKOUTS_IP = "151.236.95.210";
 
     public final static String ANDR_BO_SCR_FILE = "screenshot/andrBoScr.jpg"; // вывод для консоли
 
