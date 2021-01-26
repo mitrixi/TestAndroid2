@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static service.TestUtils.getSwipeDirection;
 
-public class ios {
+public class Ios {
     public static void scrollToElementByXpaths(IOSDriver<WebElement> driver, List<String> xpaths) {
         // ToDo Тесты показали, что во время swipe элементы DOM-дерева находящиеся выше могут пропадать из DOM, соотв mobileElement НЕ будет находится...
         //      Почему это происходит и как решать проблему - непонятно. Так же непонятно как определить: текущее положение scroll; убедиться что мы уперлись в верхнюю границу

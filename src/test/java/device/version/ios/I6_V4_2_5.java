@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static service.ImageCompare.compareBo;
-import static service.ios.scrollToElementByXpaths;
+import static service.Ios.scrollToElementByXpaths;
 
 public class I6_V4_2_5 extends IosDevice {
 
